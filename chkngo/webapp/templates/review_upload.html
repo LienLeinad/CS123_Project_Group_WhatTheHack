@@ -1,0 +1,13 @@
+<!DOCTYPE <!DOCTYPE html>
+<html>
+<head>
+    <title>Restaurant Review Upload</title>
+</head>
+<body>
+    <form method = "POST" name = 'ReviewUploadForm'>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class = "btn btn-outline-info" type="submit">Upload Review</button>
+</form>
+</body>
+</html>
