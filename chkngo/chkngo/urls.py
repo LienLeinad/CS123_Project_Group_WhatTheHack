@@ -22,4 +22,5 @@ urlpatterns = [
     path('restaurants/', views.RestoList, name = "RestoList"),
     path('restaurants/<RestoID>/', views.RestoView, name = "RestoView"),
     path('restaurants/<RestoID>/ReviewUpload/', views.ReviewUpload, name = 'ReviewUpload'),
+    path('register/', views.Register, name = 'Register'),
 ]
