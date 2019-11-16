@@ -16,9 +16,6 @@
             <fieldset class = "form-group">
                 <legend class = "border-bottom mb-4"> Join Today</legend>
                 {{ form.as_p }}
-
-                {{form2.as_p}}
-              
             </fieldset>
             <div class = "form-group">
                 <button class = "btn btn-outline-info" type="submit">Sign up</button>
@@ -26,7 +23,7 @@
         </form>
         <div class = "border-top pt-3">
             <small class = "text-muted"> 
-                Already have an account? <a class = "ml-2"href ="#">Log-in here</a>
+                Already have an account? <a class = "ml-2"href ="{% url 'Login' %}">Log-in here</a>
             </small>
         </div>
     </div>
