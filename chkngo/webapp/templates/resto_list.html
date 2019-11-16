@@ -1,0 +1,11 @@
+<!DOCTYPE <!DOCTYPE html>
+<html>
+<head>
+    <title>Restaurant List</title>
+</head>
+<body>
+    {% for r in resto_list %}
+    <p> <a href = "{{ r.RestoID }}">{{ r.RestoID }}</a> </p>
+    {% endfor %}
+</body>
+</html>
