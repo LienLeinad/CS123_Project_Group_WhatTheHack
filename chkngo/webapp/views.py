@@ -2,6 +2,8 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from .models import *
 from .forms import *
+from django.contrib import messages
+
 # Create your views here.
 def RestoList(request):
     resto_list = Restaurant.objects.all()
@@ -37,3 +39,16 @@ def ReviewUpload(request, RestoID):
         form = ReviewForm()
         context= {'form':form}
         return render (request, 'review_upload.html', context)
+
+def Register(request):
+    if request.method =="POST":
+        form = RegistrationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            messages.success(request,f'Account Created for {username}! go ahead and log in!')
+            return redirect('Register')
+    else:
+        form = RegistrationForm()
+    context = {'form':form}
+    return render(request,'registration_page.html',context)
