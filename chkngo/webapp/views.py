@@ -4,6 +4,16 @@ from .models import *
 from .forms import *
 from django.contrib import messages
 
+#A simple mean Average Algorithm, input must be a list of a certain element, outputs integer mean
+def average(list):
+    AveNum = 0
+    AveCount = 0
+    for x in list:
+        AveNum += x.Rating
+        AveCount += 1
+    AveNum = AveNum / AveCount
+    return AveNum
+
 # Create your views here.
 def RestoList(request):
     resto_list = Restaurant.objects.all()
@@ -14,6 +24,8 @@ def RestoView(request, RestoID):
     resto_deets = Restaurant.objects.get(RestoID = RestoID)
     context = {'resto_deets': resto_deets}
     return render(request, 'restoView.html', context)
+
+
 
 def ReviewUpload(request, RestoID):
     if request.method == "POST":
@@ -26,12 +38,7 @@ def ReviewUpload(request, RestoID):
             #Update Restaurant Review Average
             Resto = Restaurant.objects.get(RestoID = RestoID)
             AllRatings = Review.objects.filter(RestoID = RestoID)
-            AveRate = 0
-            RateCount = 0
-            for x in AllRatings:
-                AveRate = AveRate + x.Rating
-                RateCount += 1
-            AveRate = AveRate / RateCount #AVerage Rating for Restaurant
+            AveRate = average(AllRatings)
             Resto.Rating = AveRate
             Resto.save(force_update = True)
         return redirect('RestoList')
