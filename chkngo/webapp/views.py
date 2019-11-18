@@ -52,3 +52,4 @@ def Register(request):
         form = RegistrationForm()
     context = {'form':form}
     return render(request,'registration_page.html',context)
+
