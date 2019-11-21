@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from .models import *
 from .forms import *
 from django.contrib import messages
+import uuid
 
 #A simple mean Average Algorithm, input must be a list of a certain element, outputs integer mean
 def average(list):
@@ -14,7 +15,11 @@ def average(list):
     AveNum = AveNum / AveCount
     return AveNum
 
+
+
 # Create your views here.
+# def Home(request):
+
 def RestoList(request):
     resto_list = Restaurant.objects.all()
     context = {'resto_list': resto_list}
@@ -32,6 +37,7 @@ def ReviewUpload(request, RestoID):
         form = ReviewForm(request.POST)
         if form.is_valid():
             ReviewObj = Review()
+            ReviewObj.ReviewID = uuid.uuid1()
             ReviewObj.RestoID = Restaurant.objects.get(RestoID = RestoID)
             ReviewObj.Rating = form.cleaned_data.get('Rating')
             ReviewObj.save()
@@ -50,13 +56,34 @@ def ReviewUpload(request, RestoID):
 def Register(request):
     if request.method =="POST":
         form = RegistrationForm(request.POST)
+        form2 = RMRegistrationForm(request.POST)
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
+            temp_user = CustomUser.objects.get(username = username)
+            if form.cleaned_data.get('user_type') == 'RM':
+                if form2.is_valid():
+                    temp_Res = Restaurant(RestoID = form2.cleaned_data.get('RestoID'), MngID = temp_user)
+                    temp_Res.save()
+           
             messages.success(request,f'Account Created for {username}! go ahead and log in!')
             return redirect('Register')
     else:
         form = RegistrationForm()
-    context = {'form':form}
+        form2 = RMRegistrationForm()
+    context = {'form':form,'form2':form2}
     return render(request,'registration_page.html',context)
 
+def MakeCategory(request):
+    if(request.method == "POST"):
+        form = CategoryForm(request.POST)
+        if form.is_valid():
+            tempCat = Categories()
+            tempCat.CatID = uuid.uuid1()
+            tempCat.CatName = form.cleaned_data.get('CatName')
+            tempCat.save()
+            return redirect('Register')
+    else:
+        form = CategoryForm()
+    context = {'form':form}
+    return render(request,'make_category.html',context)
