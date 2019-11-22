@@ -3,6 +3,7 @@ from django.contrib.auth.models import User,AbstractUser
 # Create your models here.
 
 
+
 class Categories(models.Model):
     CatID = models.CharField(max_length = 30, verbose_name = 'Category ID', primary_key = True)
     CatName = models.CharField(max_length = 30, unique = True)
@@ -33,10 +34,20 @@ class CustomUser(AbstractUser):
         return self.username
 
 class Restaurant (models.Model):
+    WIFI = "WIFI"
+    SOCKETS = "SCKT"
+    AIRCON = "AIRC"
+    RESTROOM = "REST"
+    
 
     RestoID = models.CharField(max_length = 30, unique = True, primary_key = True, verbose_name = "Restaurant ID")
     MngID = models.ForeignKey(CustomUser,on_delete= models.CASCADE, verbose_name = "Manager ID")
     Category = models.ManyToManyField(Categories,related_name='Restaurants')
+    Open_time = models.TimeField(verbose_name="Opening Time")
+    Closing_time = models.TimeField(verbose_name="Closing Time")
+    Address = models.CharField(max_length = 100, verbose_name = "Address")
+    Landline = models.CharField(max_length = 10, verbose_name = "Landline", default = "none")
+    Contact = models.CharField(max_length = 11, verbose_name = 'Contact', default = "none")
     # ReviewID = models.ForeignKey(Review, on_delete=models.CASCADE)
 	# Accommodations = models.CharField(max_length=300, default='not set')
 	# Seating = models.CharField(max_length=50, default='not set')

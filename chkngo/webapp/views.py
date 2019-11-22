@@ -63,7 +63,19 @@ def Register(request):
             temp_user = CustomUser.objects.get(username = username)
             if form.cleaned_data.get('user_type') == 'RM':
                 if form2.is_valid():
-                    temp_Res = Restaurant(RestoID = form2.cleaned_data.get('RestoID'), MngID = temp_user)
+                    opTime = form2.cleaned_data.get('Open_time')
+                    clTime = form2.cleaned_data.get('Closing_time')
+                    Add = form2.cleaned_data.get('Address')
+                    Land = form2.cleaned_data.get('Landline')
+                    Cont = form2.cleaned_data.get('Contact')
+                    temp_Res = Restaurant(RestoID = form2.cleaned_data.get('RestoID'),
+                                        MngID = temp_user,
+                                        Open_time = opTime,
+                                        Closing_time = clTime,
+                                        Address = Add,
+                                        Landline = Land,
+                                        Contact = Cont
+                                        )
                     temp_Res.save()
            
             messages.success(request,f'Account Created for {username}! go ahead and log in!')
@@ -87,3 +99,35 @@ def MakeCategory(request):
         form = CategoryForm()
     context = {'form':form}
     return render(request,'make_category.html',context)
+
+def RestaurantManagement(request,RestoID):
+    if request.method == 'POST':
+        form = RestoEditForm(data = request.POST)
+        temp_resto = Restaurant.objects.get(RestoID = RestoID)
+        if form.is_valid():
+            if form.cleaned_data.get('Open_time') == '':
+                print("Nothing change Open_time")
+            else:
+                temp_resto.Open_time = form.cleaned_data.get('Open_time')
+            if form.cleaned_data.get('Closing_time') == '':
+                print("Nothing change Closing_time")
+            else:
+                temp_resto.Closing_time = form.cleaned_data.get('Closing_time')
+            if form.cleaned_data.get('Address') == '':
+                print("Nothing change Address")
+            else:
+                temp_resto.Address = form.cleaned_data.get('Address')
+            if form.cleaned_data.get('Landline') == '':
+                print("Nothing change Landline")
+            else:
+                temp_resto.Landline = form.cleaned_data.get('Landline')
+            if form.cleaned_data.get('Contact') == '':
+                print("Nothing change Contact")
+            else:
+                temp_resto.Contact = form.cleaned_data.get('Contact')
+            temp_resto.save(force_update = True)
+            return redirect('RestoView', RestoID = RestoID)
+    else:
+        form = RestoEditForm()
+    context = {'form':form}
+    return render(request, 'restaurant_management.html',context)

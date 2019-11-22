@@ -35,11 +35,15 @@ class RegistrationForm(UserCreationForm):
             ]
 
 class RMRegistrationForm(forms.ModelForm):
+    INPUT_FORMATS = ['%H:%M',]
     RestoID = forms.CharField(max_length= 30, required = False, label = "Restaurant ID")
     Category = forms.ModelMultipleChoiceField(queryset = Categories.objects.all(), required = False)
+    Open_time = forms.TimeField(input_formats= INPUT_FORMATS, label= "Opening Time" )
+    Closing_time = forms.TimeField(input_formats= INPUT_FORMATS, label= "Closing Time" )
+    
     class Meta:
         model = Restaurant
-        fields= ['RestoID',]
+        fields= ['RestoID','Open_time','Closing_time','Address','Landline','Contact']
 
 
 class CategoryForm(forms.ModelForm):
@@ -47,3 +51,13 @@ class CategoryForm(forms.ModelForm):
     class Meta:
         model = Categories
         fields = ['CatName']
+
+class RestoEditForm(forms.ModelForm):
+    INPUT_FORMATS = ['%H:%M',]
+    Open_time = forms.TimeField(input_formats= INPUT_FORMATS, label= "Opening Time" )
+    Closing_time = forms.TimeField(input_formats= INPUT_FORMATS, label= "Closing Time" )
+    
+
+    class Meta:
+        model = Restaurant
+        fields = ['Open_time','Closing_time','Address','Landline','Contact']
