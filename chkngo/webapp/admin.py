@@ -4,3 +4,4 @@ from .models import *
 admin.site.register(Restaurant)
 admin.site.register(Review)
 admin.site.register(CustomUser)
+admin.site.register(Categories)
