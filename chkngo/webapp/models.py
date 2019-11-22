@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User,AbstractUser
 # Create your models here.
 
+
 class Categories(models.Model):
     CatID = models.CharField(max_length = 30, verbose_name = 'Category ID', primary_key = True)
     CatName = models.CharField(max_length = 30, unique = True)
@@ -55,3 +56,4 @@ class Review(models.Model):
     # ReviewedBy = models.CharField(max_length = 30, default = "Anonymous")
     def __str__(self):
         return str(self.Rating)
+
