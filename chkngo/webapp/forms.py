@@ -2,8 +2,6 @@ from django import forms
 from .models import *
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-# from . import SelectTimeWidget
-
 class ReviewForm(forms.ModelForm):
     Rating = forms.IntegerField(max_value=5, min_value= 0)
     ReviewDetail = forms.CharField(max_length = 250, label = 'Review')
@@ -32,7 +30,7 @@ class RegistrationForm(UserCreationForm):
             'username',
             'email',
             'contact',
-            'password1', 
+            'password1',
             'password2'
             ]
 
@@ -56,12 +54,9 @@ class CategoryForm(forms.ModelForm):
 
 class RestoEditForm(forms.ModelForm):
     INPUT_FORMATS = ['%H:%M',]
-    Open_time = forms.TimeField(input_formats= INPUT_FORMATS, label= "Opening Time", required = False)
-    Closing_time = forms.TimeField(input_formats= INPUT_FORMATS, label= "Closing Time", required = False)
-    Address = forms.CharField(label = "Address", max_length = 100, required = False)
-    Landline = forms.CharField(label = "Landline", max_length = 10, required = False)
-    Contact = forms.CharField(label = "Contact", max_length = 11, required = False)
-
+    Open_time = forms.TimeField(input_formats= INPUT_FORMATS, label= "Opening Time" )
+    Closing_time = forms.TimeField(input_formats= INPUT_FORMATS, label= "Closing Time" )
+    
 
     class Meta:
         model = Restaurant

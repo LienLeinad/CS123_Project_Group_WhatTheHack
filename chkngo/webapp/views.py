@@ -4,7 +4,6 @@ from .models import *
 from .forms import *
 from django.contrib import messages
 import uuid
-from django.contrib.auth.decorators import login_required
 
 #A simple mean Average Algorithm, input must be a list of a certain element, outputs integer mean
 def average(list):
@@ -48,7 +47,7 @@ def ReviewUpload(request, RestoID):
             AveRate = average(AllRatings)
             Resto.Rating = AveRate
             Resto.save(force_update = True)
-        return redirect('RestoView', RestoID = RestoID)
+        return redirect('RestoList')
     else:
         form = ReviewForm()
         context= {'form':form}
@@ -102,18 +101,15 @@ def MakeCategory(request):
     return render(request,'make_category.html',context)
 
 def RestaurantManagement(request,RestoID):
-    if not request.user.is_authenticated and not request.user.user_type == 'RM':
-        return redirect('RestoView',RestoID = RestoID)
-        print("NOT AUTHENTICATED USER")
     if request.method == 'POST':
         form = RestoEditForm(data = request.POST)
         temp_resto = Restaurant.objects.get(RestoID = RestoID)
         if form.is_valid():
-            if form.cleaned_data.get('Open_time') == None:
+            if form.cleaned_data.get('Open_time') == '':
                 print("Nothing change Open_time")
             else:
                 temp_resto.Open_time = form.cleaned_data.get('Open_time')
-            if form.cleaned_data.get('Closing_time') == None:
+            if form.cleaned_data.get('Closing_time') == '':
                 print("Nothing change Closing_time")
             else:
                 temp_resto.Closing_time = form.cleaned_data.get('Closing_time')
