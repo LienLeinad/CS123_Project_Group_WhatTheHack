@@ -1,31 +1,59 @@
 <!DOCTYPE html>
 <html>
 <head>
+    {% load static %}
+    <title>ChknGo</title>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!--- Bootstrap Style Sheet --->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+    <!-- Main CSS for the Website -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+    <!-- Registration CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/registration_page.css' %}">
+
+    <!-- Work Sans Font -->
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans:300,400,700&display=swap" rel="stylesheet">
+</head>
 </head>
 <body>
-    {% if messages %}
-        {% for message in messages %}
-            <div class = "alert alert-{{ message.tags }}">
-                {{ message }}
-            </div>
-        {% endfor %}
-    {% endif %}
-    <div class = "content-section">
+    <br>
+    <div class="container">
+        {% if messages %}
+            {% for message in messages %}
+                <div class = "alert alert-{{ message.tags }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
         <form method = "POST">
             {% csrf_token %}
             <fieldset class = "form-group">
-                <legend class = "border-bottom mb-4"> Join Today</legend>
-                {{ form.as_p }}
+                <h3 class="display-4">Registration</h3>
+                <div class="row">
+                    <div class="col">
+                        {{ form.as_p }}
+                    </div>
+                    <div class="col">
+                        {{ form2.as_p }}
+                        <h6>No category? Make one <a href = "{% url 'MakeCategory' %}">here!</a><h6>
+                    </div>
+                </div>
+                <br>
             </fieldset>
             <div class = "form-group">
-                <button class = "btn btn-outline-info" type="submit">Sign up</button>
+                <button class = "btn input-btn" type="submit">Sign up</button>
             </div>
         </form>
-        <div class = "border-top pt-3">
+        <div>
             <small class = "text-muted"> 
                 Already have an account? <a class = "ml-2"href ="{% url 'Login' %}">Log-in here</a>
             </small>
         </div>
     </div>
+    <br>
 </body>
 </html>

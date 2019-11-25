@@ -1,0 +1,31 @@
+.container {
+    width: fit-content;
+    background-color: #FAFAFA;
+    border-radius: 10px;
+}
+.form-group {
+    border: none;
+    margin: 0;
+    height: fit-content;
+}
+p {
+    margin-bottom: 0;
+    margin: 1vw 0 1vw 0;
+}
+#id_Category {
+    width: 100%;
+}
+.helptext {
+    display: block;
+}
+.input-btn {
+    background-color: white;
+    border: 1px solid #323031;
+    border-radius: 5px;
+    padding: 0.5vw 5vw;
+}
+.input-btn:hover, .logout-btn:hover {
+    background-color: #323031;
+    border-color: none;
+    color: white;
+}
