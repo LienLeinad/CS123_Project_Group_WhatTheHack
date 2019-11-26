@@ -101,15 +101,18 @@ def MakeCategory(request):
     return render(request,'make_category.html',context)
 
 def RestaurantManagement(request,RestoID):
-    if request.method == 'POST':
+    if not request.user.user_type == "RM" or (request.user.is_authenticated and not Restaurant.objects.get(RestoID = RestoID).MngID == request.user):
+        messages.success(request,'page you\'r tryring to access is forbidden')
+        return redirect('RestoList')
+    elif request.method == 'POST':
         form = RestoEditForm(data = request.POST)
         temp_resto = Restaurant.objects.get(RestoID = RestoID)
         if form.is_valid():
-            if form.cleaned_data.get('Open_time') == '':
+            if form.cleaned_data.get('Open_time') == None:
                 print("Nothing change Open_time")
             else:
                 temp_resto.Open_time = form.cleaned_data.get('Open_time')
-            if form.cleaned_data.get('Closing_time') == '':
+            if form.cleaned_data.get('Closing_time') == None:
                 print("Nothing change Closing_time")
             else:
                 temp_resto.Closing_time = form.cleaned_data.get('Closing_time')

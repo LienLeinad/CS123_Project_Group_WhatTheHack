@@ -7,10 +7,11 @@ from django.contrib.auth.models import User,AbstractUser
 class Categories(models.Model):
     CatID = models.CharField(max_length = 30, verbose_name = 'Category ID', primary_key = True)
     CatName = models.CharField(max_length = 30, unique = True)
+    # CatPic = models.FileField() #fix this later
     def __str__(self):
         return self.CatName
 
-
+    
 
 
 class CustomUser(AbstractUser):
@@ -20,7 +21,7 @@ class CustomUser(AbstractUser):
         (CUSTOMER,'Customer'),
         (RESTAURANT_MANAGER,'Restaurant Manager'),
     )
-    UserType = models.CharField(
+    user_type = models.CharField(
         max_length = 2,
         choices = USER_TYPES,
         default = CUSTOMER,
@@ -67,4 +68,5 @@ class Review(models.Model):
     # ReviewedBy = models.CharField(max_length = 30, default = "Anonymous")
     def __str__(self):
         return str(self.Rating)
+
 
