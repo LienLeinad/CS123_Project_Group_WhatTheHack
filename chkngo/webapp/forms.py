@@ -54,10 +54,12 @@ class CategoryForm(forms.ModelForm):
 
 class RestoEditForm(forms.ModelForm):
     INPUT_FORMATS = ['%H:%M',]
-    Open_time = forms.TimeField(input_formats= INPUT_FORMATS, label= "Opening Time" )
-    Closing_time = forms.TimeField(input_formats= INPUT_FORMATS, label= "Closing Time" )
+    Open_time = forms.TimeField(input_formats= INPUT_FORMATS, label= "Opening Time", required = False )
+    Closing_time = forms.TimeField(input_formats= INPUT_FORMATS, label= "Closing Time", required = False )
+    Address = forms.CharField(required = False, max_length= 100)
+    Landline = forms.CharField(required = False, max_length=10)
+    Contact = forms.CharField(required = False, max_length=11)
     
-
     class Meta:
         model = Restaurant
         fields = ['Open_time','Closing_time','Address','Landline','Contact']

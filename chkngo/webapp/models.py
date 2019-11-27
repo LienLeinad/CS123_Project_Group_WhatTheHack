@@ -7,10 +7,11 @@ from django.contrib.auth.models import User,AbstractUser
 class Categories(models.Model):
     CatID = models.CharField(max_length = 30, verbose_name = 'Category ID', primary_key = True)
     CatName = models.CharField(max_length = 30, unique = True)
+    # CatPic = models.FileField() #fix this later
     def __str__(self):
         return self.CatName
 
-
+    
 
 
 class CustomUser(AbstractUser):
@@ -20,7 +21,7 @@ class CustomUser(AbstractUser):
         (CUSTOMER,'Customer'),
         (RESTAURANT_MANAGER,'Restaurant Manager'),
     )
-    UserType = models.CharField(
+    user_type = models.CharField(
         max_length = 2,
         choices = USER_TYPES,
         default = CUSTOMER,
@@ -40,12 +41,12 @@ class Restaurant (models.Model):
     RESTROOM = "REST"
     
 
-    RestoID = models.CharField(max_length = 30, unique = True, primary_key = True, verbose_name = "Restaurant ID")
+    RestoID = models.CharField(max_length = 30, unique = True, primary_key = True, verbose_name = "Restaurant ID", default = "none")
     MngID = models.ForeignKey(CustomUser,on_delete= models.CASCADE, verbose_name = "Manager ID")
-    Category = models.ManyToManyField(Categories,related_name='Restaurants')
-    Open_time = models.TimeField(verbose_name="Opening Time")
-    Closing_time = models.TimeField(verbose_name="Closing Time")
-    Address = models.CharField(max_length = 100, verbose_name = "Address")
+    Category = models.ManyToManyField(Categories,related_name='Restaurants',)
+    Open_time = models.TimeField(verbose_name="Opening Time", null = True, default = "0:0")
+    Closing_time = models.TimeField(verbose_name="Closing Time", default = "0:0", null = True)
+    Address = models.CharField(max_length = 100, verbose_name = "Address", default = "none")
     Landline = models.CharField(max_length = 10, verbose_name = "Landline", default = "none")
     Contact = models.CharField(max_length = 11, verbose_name = 'Contact', default = "none")
     # ReviewID = models.ForeignKey(Review, on_delete=models.CASCADE)
@@ -67,4 +68,5 @@ class Review(models.Model):
     # ReviewedBy = models.CharField(max_length = 30, default = "Anonymous")
     def __str__(self):
         return str(self.Rating)
+
 
