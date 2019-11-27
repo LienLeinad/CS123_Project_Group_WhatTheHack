@@ -61,6 +61,7 @@ def Register(request):
             form.save()
             username = form.cleaned_data.get('username')
             temp_user = CustomUser.objects.get(username = username)
+            print(form.cleaned_data.get('user_type'))
             if form.cleaned_data.get('user_type') == 'RM':
                 if form2.is_valid():
                     opTime = form2.cleaned_data.get('Open_time')
@@ -76,8 +77,9 @@ def Register(request):
                                         Landline = Land,
                                         Contact = Cont
                                         )
+                    print(temp_Res)
                     temp_Res.save()
-           
+                    print(Restaurant.objects.all())
             messages.success(request,f'Account Created for {username}! go ahead and log in!')
             return redirect('Register')
     else:

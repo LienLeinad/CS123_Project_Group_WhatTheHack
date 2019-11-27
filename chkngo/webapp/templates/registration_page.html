@@ -24,36 +24,42 @@
     <div class="container">
         {% if messages %}
             {% for message in messages %}
-                <div class = "alert alert-{{ message.tags }}">
+                <div class="alert alert-{{ message.tags }}">
                     {{ message }}
                 </div>
             {% endfor %}
         {% endif %}
-        <form method = "POST">
+        <form method="POST" class="form-div">
             {% csrf_token %}
-            <fieldset class = "form-group">
+            <fieldset class="form-group">
                 <h3 class="display-4">Registration</h3>
+                <div class="fancy-line"></div>
                 <div class="row">
-                    <div class="col">
+                    <div class="col-sm">
                         {{ form.as_p }}
                     </div>
-                    <div class="col">
+                    <div class="col-sm" id="hidden_div" style="display: none;">
                         {{ form2.as_p }}
-                        <h6>No category? Make one <a href = "{% url 'MakeCategory' %}">here!</a><h6>
+                        <h6>No category? Make one <a href="{% url 'MakeCategory' %}">here!</a><h6>
                     </div>
                 </div>
-                <br>
             </fieldset>
-            <div class = "form-group">
-                <button class = "btn input-btn" type="submit">Sign up</button>
+            <div class="form-group">
+                <button class="btn input-btn" type="submit">Sign up</button>
+            </div>
+            <div>
+                <small class="text-muted">Already have an account?<a class="ml-2" href ="{% url 'Login' %}">Log-in here</a></small>
             </div>
         </form>
-        <div>
-            <small class = "text-muted"> 
-                Already have an account? <a class = "ml-2"href ="{% url 'Login' %}">Log-in here</a>
-            </small>
-        </div>
     </div>
     <br>
+
+    <!-- Source: http://jsfiddle.net/f4PV4/1/ -->
+    <script type="text/javascript">
+        document.getElementById('id_user_type').addEventListener('change', function () {
+            var style = this.value == "RM" ? 'block' : 'none';
+            document.getElementById('hidden_div').style.display = style;
+        });
+    </script>
 </body>
 </html>
