@@ -30,8 +30,6 @@ def RestoView(request, RestoID):
     context = {'resto_deets': resto_deets}
     return render(request, 'restoView.html', context)
 
-
-
 def ReviewUpload(request, RestoID):
     if request.method == "POST":
         form = ReviewForm(request.POST)
