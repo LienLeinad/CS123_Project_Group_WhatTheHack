@@ -2,36 +2,62 @@
 <html>
 <head>
 	<title></title>
-<link rel="stylesheet" type="text/css" href="landing-page.css">
+	<!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	
+	<!--- Bootstrap Style Sheet --->
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+    <!-- Main CSS -->
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+    <!-- Landing Page -->
+	<link rel="stylesheet" type="text/css" href="css/landing-page.css">
+
+	<!--- Work Sans font --->
+	<link href="https://fonts.googleapis.com/css?family=Work+Sans&display=swap" rel="stylesheet">
 </head>
 <body>
-	
 	<div class="top-container">
 		<div class="top-grid">
 			<div class="login-container">
-				<form action="" class="login-form">
+				<form action="POST" class="login-form">
 					<input type="submit" value="login" class="login-submit"></input>					
 				</form>
 			</div>
 			<img src="" class="img-container">
 			<form action="" class="top-search">
 				<input type="text" placeholder="Search"></input>
-				<input type="submit" value="Search" class="search-submit"></input>
+				<button type="submit" value="Search" class="btn input-btn search-submit">Search</button>
 			</form>
 		</div>
 	</div>
 
 	<div class="bot-container">
 		<div class="bot-title">Explore Categories</div>
+		<!-- Category Boxes -->
 		<div class="bot-grid">
-			<div class="bot-grid-item">a</div>
-			<div class="bot-grid-item">a</div>
-			<div class="bot-grid-item">a</div>
-			<div class="bot-grid-item">a</div>
-			<div class="bot-grid-item">a</div>	
-			<div class="bot-grid-item">a</div>	
+			<a class="bot-grid-item cat-box cat-box-link" href="#">
+				<div><h3 class="cat-box-name">Breakfast</h3></div>
+			</a>
+			<a class="bot-grid-item cat-box cat-box-link" href="#">
+				<div><h3 class="cat-box-name">Lunch</h3></div>
+			</a>
+			<a class="bot-grid-item cat-box cat-box-link" href="#">
+				<div><h3 class="cat-box-name">Dinner</h3></div>
+			</a>
+			<a class="bot-grid-item cat-box cat-box-link" href="#">
+				<div><h3 class="cat-box-name">Snack</h3></div>
+			</a>
+			<a class="bot-grid-item cat-box cat-box-link" href="#">
+				<div><h3 class="cat-box-name">Fancy</h3></div>
+			</a>
+			<a class="bot-grid-item cat-box cat-box-link" href="#">
+				<div><h3 class="cat-box-name">Chill</h3></div>
+			</a>
+			
 		</div>
-
 	</div>
+
+	<br>
 </body>
 </html>

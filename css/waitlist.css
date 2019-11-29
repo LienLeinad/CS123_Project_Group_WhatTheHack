@@ -1,0 +1,79 @@
+body {
+	background-color: #fdc758;
+}
+
+.waitlist-title {
+	text-align: center;
+	color: black;
+}
+
+.row {
+	background-color: #FFFFFF;
+	border-radius: 5px;
+}
+
+.confirm-btn, .confirm-btn:visited, .confirm-btn:hover {
+	background-color: #17da10;
+	border-right: 2px solid #119d0c;
+	border-bottom: 2px solid #119d0c;
+}
+
+.delete-btn, .delete-btn:visited, .delete-btn:hover {
+	background-color: #ee3120;
+	border-right: 2px solid #9d180c;
+	border-bottom: 2px solid #9d180c;
+}
+
+.confirm-btn:active, .delete-btn:active {
+	right: 60vw;
+}
+
+.col-4 {
+	text-align: right;
+}
+
+.back-btn {
+	background-color: #323031;
+	color: white;
+	border: 1px solid white;
+}
+
+@media (min-width: 360px) {
+	.container {
+		width: initial;
+		margin-top: 5vw;
+	}
+
+	.row {
+		margin: 1vw 0.5vw 3vw 0.5vw;
+		padding: 3vw 1vw 3vw 1vw;
+	}
+
+	.waitlistNum {
+		margin-top: 2vw;
+	}
+
+	.waitlist-title {
+		margin-bottom: 5vw;
+	}
+}
+
+@media (min-width: 992px) {
+	.container {
+		width: 40%;
+		margin-top: 5vw;
+	}
+
+	.row {
+		margin: 0 0 1.5vw 0;
+		padding: 1vw;
+	}
+
+	.waitlistNum {
+		margin-top: 0.5vw;
+	}
+
+	.waitlist-title {
+		margin-bottom: 1.5vw;
+	}
+}

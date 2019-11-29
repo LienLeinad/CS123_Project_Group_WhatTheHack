@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- {% load static %} -->
+	<title>ChknGo</title>
+
+	<!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	 <!--- Bootstrap Style Sheet --->
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <!-- Main CSS for the Website -->
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <!-- Waitlist CSS -->
+    <link rel="stylesheet" type="text/css" href="css/waitlist.css">
+
+	<!--- Work Sans font --->
+	<link href="https://fonts.googleapis.com/css?family=Work+Sans&display=swap" rel="stylesheet">
+</head>
+<body>
+	<div class="container">
+		<h1 class="waitlist-title display-4"><button class="btn back-btn" style="float: right;">Back</button>wait list</h1>
+		<!-- Waitlister -->
+		<div id="row" class="row shadow">
+			<div class="col-1">
+				<h6 class="waitlistNum">#</h6>
+			</div>
+			<div class="col">
+				<h6>Anne Manzano</h6>
+				<h6>09097861234</h6>
+			</div>
+			<div class="col-4">
+				<button class="btn confirm-btn" onclick="fade(this)" type="submit"><ion-icon name="checkmark"></ion-icon></button>
+				<button class="btn delete-btn" onclick="fade(this)" type="submit"><ion-icon name="trash"></ion-icon></button>
+			</div>
+		</div>
+		<!--  -->
+		
+		<!-- Waitlister -->
+		<div id="row" class="row shadow">
+			<div class="col-1">
+				<h6 class="waitlistNum">#</h6>
+			</div>
+			<div class="col">
+				<h6>Anne Manzano</h6>
+				<h6>09097861234</h6>
+			</div>
+			<div class="col-4">
+				<button class="btn confirm-btn" onclick="fade(this)" type="submit"><ion-icon name="checkmark"></ion-icon></button>
+				<button class="btn delete-btn" onclick="fade(this)" type="submit"><ion-icon name="trash"></ion-icon></button>
+			</div>
+		</div>
+		<!--  -->		
+	</div>
+
+	<script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
+	<script src="js/waitlist.js"></script>
+</body>
+</html>

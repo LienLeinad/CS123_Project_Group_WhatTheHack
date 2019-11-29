@@ -1,8 +1,12 @@
+body{
+	margin: 0;
+	padding: 0;
+}
 .login-container{
 	grid-area: login;
 }
 .img-container{
-	grid-area: image;
+	/*grid-area: image;*/
 	background-color: tomato;
 }
 .logo{
@@ -33,10 +37,7 @@
 .bot-title{
 	display: flex;
 	justify-content: center;
-	width: 100%;
-	height: 20%;
-	margin-top: 5vh;
-	font-family: roboto;
+	margin: 3vw 0vw 3vw 0vw;
 	font-weight: bold;
 	font-size: 3em;
 }
@@ -50,20 +51,42 @@
 	height: 80%;
 }
 .bot-grid-item{
-	display: flex;
-	height: 30%;
 	width: 25%;
 	margin: 2%;
-	min-height: 30vh;
-	background-color: grey;
+	background-color: #F0F0F0;
+	text-align: center;
+	border-radius: 15px;
 }
-body{
+
+.cat-box-name {
 	margin: 0;
-	padding: 0;
+	padding: 3.5vw 0 3.5vw 0;
+	font-weight: 300;
 }
+
+.cat-box-link, .cat-box-link:hover, .cat-box-link:visited {
+	text-decoration: none;
+	color: black;
+}
+
 .top-search{
 	grid-area: search;
 }
+
+.input-btn {
+    background-color: white;
+    border: 1px solid #323031;
+    border-radius: 5px;
+    padding: 0.5vw 5vw;
+}
+
+.input-btn:hover, .logout-btn:hover {
+    background-color: #323031;
+    border-color: none;
+    color: white;
+}
+
+
 input[type=text]{
 	border-radius: 6px;
 	border: 1px solid black;
@@ -80,9 +103,7 @@ input[type=submit]{
 	min-height: 40px;
 	margin-left: 1vw;
 }
-.search-submit{
-	width: 20%;
-}
+
 .login-submit{
 	width: 80%;
 	margin-top: 3vh;
