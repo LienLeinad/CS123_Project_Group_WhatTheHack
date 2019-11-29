@@ -11,7 +11,23 @@
   <p>  {{ resto_deets.Address }}</p>
   <p>  {{ resto_deets.Landline }}</p>
   <p>  {{ resto_deets.Contact }}</p>
+<h1>Wait List!</h1>
+  {% for w in WaitList %}
+  <p> {{w.first_name}} </p>
+  <p> {{w.last_name}} </p>
+  <p>{{ w.PaxCount }}</p>
+  <p> {{ w.TimeIn }}</p>
+  <p> {{ w.TimeOut }}</p>
+  <p>Seated: {{ w.Seated }}</p>
+  
+  <p> <a href = "DeleteEntry/{{ w.first_name }}/{{ w.last_name }}/{{ w.id }}"> Remove Entry </a></p>
+  <p> <a href = "SeatEntry/{{ w.id }}"> Seated </a></p>
+  
+</br>
+  {% endfor %}
   <p><a href = "manage"> Edit Restaurant </a></p>
-<p><a href = "ReviewUpload">Leave a Review!</a></p>
+  <p><a href = "ReviewUpload">Leave a Review!</a></p>
+  <p>this one can only be seen by the RM</p>
+  <p><a href = "SeeWaitList/">Add to the WaitList!</a></p>
 </body>
 </html>

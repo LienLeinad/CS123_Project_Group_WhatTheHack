@@ -4,6 +4,7 @@ from .models import *
 from .forms import *
 from django.contrib import messages
 import uuid
+import datetime
 
 #A simple mean Average Algorithm, input must be a list of a certain element, outputs integer mean
 def average(list):
@@ -27,7 +28,8 @@ def RestoList(request):
 
 def RestoView(request, RestoID):
     resto_deets = Restaurant.objects.get(RestoID = RestoID)
-    context = {'resto_deets': resto_deets}
+    WaitList = WaitListEntry.objects.filter(RestoID = RestoID,Seated = False)
+    context = {'resto_deets': resto_deets, 'WaitList':WaitList, 'user':request.user}
     return render(request, 'restoView.html', context)
 
 
@@ -136,3 +138,30 @@ def RestaurantManagement(request,RestoID):
         form = RestoEditForm()
     context = {'form':form}
     return render(request, 'restaurant_management.html',context)
+
+def DeleteEntry(request,RestoID,first_name,last_name,id):
+    WaitListEntry.objects.filter(id = id,first_name = first_name, last_name = last_name, RestoID = Restaurant.objects.get(RestoID = RestoID)).delete()
+    return redirect('RestoView', RestoID = RestoID)
+
+def SeatEntry(request,RestoID,id):
+    seatedEntry = WaitListEntry.objects.get(id = id)
+    seatedEntry.Seated = True
+    seatedEntry.TimeOut = datetime.datetime.now().strftime('%H:%M')
+    seatedEntry.save()
+    return redirect('RestoView',RestoID = RestoID)
+
+# IMPORTANT: NOT A VIEW TO SEE THE WAIT LIST ANYMORE, JUST A TEST VIEW FOR ADDING WAITLIST ENTRIES BEFORE THE FRONT END GETS INTEGRATED TO RESTOVIEW
+def SeeWaitlist(request, RestoID):
+    if request.method == 'POST':
+        form = WaitListEntryForm(request.POST)
+        if form.is_valid():
+            temp_WLE= WaitListEntry(RestoID = Restaurant.objects.get(RestoID = RestoID),
+                                    first_name = form.cleaned_data.get('first_name'),
+                                    last_name = form.cleaned_data.get('last_name'),
+                                    PaxCount = form.cleaned_data.get('PaxCount'))
+            temp_WLE.save()
+            return redirect('RestoView', RestoID = RestoID)
+    else:
+        form = WaitListEntryForm() 
+    context = {'form': form}
+    return render(request,'wait_list.html',context)

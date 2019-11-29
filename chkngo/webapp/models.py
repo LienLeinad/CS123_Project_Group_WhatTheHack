@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User,AbstractUser
+import datetime
 # Create your models here.
 
 
@@ -49,7 +50,6 @@ class Restaurant (models.Model):
     Address = models.CharField(max_length = 100, verbose_name = "Address", default = "none")
     Landline = models.CharField(max_length = 10, verbose_name = "Landline", default = "none")
     Contact = models.CharField(max_length = 11, verbose_name = 'Contact', default = "none")
-    # ReviewID = models.ForeignKey(Review, on_delete=models.CASCADE)
 	# Accommodations = models.CharField(max_length=300, default='not set')
 	# Seating = models.CharField(max_length=50, default='not set')
     Rating = models.IntegerField(editable = True, default = 0)
@@ -70,3 +70,14 @@ class Review(models.Model):
         return str(self.Rating)
 
 
+
+class WaitListEntry(models.Model):
+    # EntryID = models.CharField(max_length = 40, unique = True, primary_key = True, verbose_name = "Entry ID")
+    RestoID = models.ForeignKey(Restaurant, related_name="WaitListEntry", on_delete = models.CASCADE)
+    # UserID = models.ForeignKey(CustomUser,related_name= "WaitListEntry", on_delete = models.CASCADE, null = True, default = None )
+    first_name = models.CharField(verbose_name = "First Name", max_length = 30)
+    last_name = models.CharField(verbose_name = "Last Name", max_length = 30)
+    PaxCount = models.IntegerField(editable = True, default = 1)
+    TimeIn = models.TimeField(auto_now=False, verbose_name="Time In", default = datetime.datetime.now().strftime('%H:%M') )
+    TimeOut = models.TimeField(verbose_name="Time Out", null = True)
+    Seated = models.BooleanField(verbose_name="Seated", default = False)
