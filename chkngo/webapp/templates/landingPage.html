@@ -51,31 +51,31 @@
 	<div class="container bot-con">
 		<h2 class="exp-cat">Explore Categories</h2>
 		<!-- Categories divided into 3 per row -->
-		<!-- Cat Row 1 -->
 
 		{% block categ %}
 
-
 		{% for category in category_list %}
+
+		{% if forloop.first %}
 			<div class="row cat-row">
-			{% if forloop.counter0|divisibleby:3 %}
-				<div class="row cat-row">
-			{% endif %}
+		{% endif %}
 
-			<a href="#" class="col-sm cat-col shadow"><div><h4>{{ category }}</h4></div></a>
-
+				<a href="#" class="col-sm cat-col shadow"><div><h4>{{ category.CatName }}</h4></div></a>
+			
+		{% if forloop.counter == 3 %}
 			</div>
-		{% endfor %}
+			<div class="row cat-row">
+		{% endif %}
 
+		{% if forloop.last %}
+		</div>
+		{% endif %}
+
+			
+		{% endfor %}
 
 		{% endblock %}
 
-		<!-- Cat Row 2 -->
-		<!-- <div class="row cat-row">
-			<a href="#" class="col-sm cat-col shadow"><div><h4>Chill</h4></div></a>
-			<a href="#" class="col-sm cat-col shadow"><div><h4>Fancy</h4></div></a>
-			<a href="#" class="col-sm cat-col shadow"><div><h4>Exotic</h4></div></a>
-		</div> -->
 	</div>
 
 	<!-- scripts to make everything smooth -->
