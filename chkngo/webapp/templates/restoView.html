@@ -11,6 +11,11 @@
   <p>  {{ resto_deets.Address }}</p>
   <p>  {{ resto_deets.Landline }}</p>
   <p>  {{ resto_deets.Contact }}</p>
+  <p> AveWaitTime 1-4: {{resto_deets.WaitTime1_4}}</p>
+  <p> AveWaitTime 5-8: {{resto_deets.WaitTime5_8}}</p>
+  <p> AveWaitTime 9-12: {{resto_deets.WaitTime9_12}}</p>
+  
+  
 <h1>Wait List!</h1>
   {% for w in WaitList %}
   <p> {{w.first_name}} </p>
