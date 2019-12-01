@@ -19,7 +19,7 @@ from webapp import views
 from django.contrib.auth import views as auth_views
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('landing/', views.LandingPage, name = "LandingPage"),
+    path('', views.LandingPage, name = "LandingPage"),
     path('restaurants/', views.RestoList, name = "RestoList"),
     path('restaurants/<RestoID>/', views.RestoView, name = "RestoView"),
     path('restaurants/<RestoID>/manage',views.RestaurantManagement, name = 'RestoManage'),
