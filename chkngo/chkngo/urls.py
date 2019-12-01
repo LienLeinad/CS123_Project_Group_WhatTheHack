@@ -17,6 +17,10 @@ from django.contrib import admin
 from django.urls import path
 from webapp import views
 from django.contrib.auth import views as auth_views
+from django.conf.urls.static import static
+from django.conf import settings
+from django.conf.urls import url, include
+from webapp.views import (searchposts)
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.LandingPage, name = "LandingPage"),
@@ -28,5 +32,11 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(template_name = 'logout.html'),name = 'Logout'),
     path('register/', views.Register, name = 'Register'),
     path('register/make_category', views.MakeCategory, name = "MakeCategory"),
+	path('search/', views.searchposts, name="Search"),
+	url(r'^search/', include(('webapp.urls',"Search"), namespace='search')),
     # path('', views.home, name = 'Home'),
 ]
+
+if settings.DEBUG:
+    urlpatterns= urlpatterns + static(settings.MEDIA_URL, document_root= settings.MEDIA_ROOT)
+    urlpatterns= urlpatterns + static(settings.STATIC_URL, document_root= settings.STATIC_ROOT)
