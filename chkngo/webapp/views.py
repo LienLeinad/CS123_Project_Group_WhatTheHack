@@ -20,6 +20,11 @@ def average(list):
 # Create your views here.
 # def Home(request):
 
+def LandingPage(request):
+    category_list = Categories.objects.values('CatName')
+    context = {'category_list': category_list}
+    return render(request, 'landingPage.html', context)
+
 def RestoList(request):
     resto_list = Restaurant.objects.all()
     context = {'resto_list': resto_list}
@@ -29,8 +34,6 @@ def RestoView(request, RestoID):
     resto_deets = Restaurant.objects.get(RestoID = RestoID)
     context = {'resto_deets': resto_deets}
     return render(request, 'restoView.html', context)
-
-
 
 def ReviewUpload(request, RestoID):
     if request.method == "POST":
