@@ -63,3 +63,11 @@ class RestoEditForm(forms.ModelForm):
     class Meta:
         model = Restaurant
         fields = ['Open_time','Closing_time','Address','Landline','Contact']
+
+class WaitListEntryForm(forms.ModelForm):
+    first_name = forms.CharField(max_length= 30, label = "First Name")
+    last_name = forms.CharField(max_length= 30, label = "Last Name")
+    PaxCount = forms.IntegerField(min_value=1, label = "Party Size")
+    class Meta:
+        model = WaitListEntry
+        fields = ['first_name', 'last_name', 'PaxCount']
