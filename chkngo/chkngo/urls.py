@@ -17,8 +17,13 @@ from django.contrib import admin
 from django.urls import path
 from webapp import views
 from django.contrib.auth import views as auth_views
+from django.conf.urls.static import static
+from django.conf import settings
+from django.conf.urls import url, include
+from webapp.views import (searchposts)
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', views.LandingPage, name = "LandingPage"),
     path('restaurants/', views.RestoList, name = "RestoList"),
     path('restaurants/<RestoID>/', views.RestoView, name = "RestoView"),
     path('restaurants/<RestoID>/manage',views.RestaurantManagement, name = 'RestoManage'),
@@ -30,6 +35,15 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(template_name = 'logout.html'),name = 'Logout'),
     path('register/', views.Register, name = 'Register'),
     path('register/make_category', views.MakeCategory, name = "MakeCategory"),
+<<<<<<< HEAD
     
+=======
+	path('search/', views.searchposts, name="Search"),
+	url(r'^search/', include(('webapp.urls',"Search"), namespace='search')),
+>>>>>>> bb7d453e4bab5f016e4e4550536169f82590440d
     # path('', views.home, name = 'Home'),
 ]
+
+if settings.DEBUG:
+    urlpatterns= urlpatterns + static(settings.MEDIA_URL, document_root= settings.MEDIA_ROOT)
+    urlpatterns= urlpatterns + static(settings.STATIC_URL, document_root= settings.STATIC_ROOT)

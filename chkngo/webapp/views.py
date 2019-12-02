@@ -5,6 +5,7 @@ from .forms import *
 from django.contrib import messages
 import uuid
 import datetime,statistics
+from django.db.models import Q
 
 #A simple mean Average Algorithm, input must be a list of a certain element, outputs integer mean
 def average(list):
@@ -33,6 +34,11 @@ def average(list):
 # Create your views here.
 # def Home(request):
 
+def LandingPage(request):
+    category_list = Categories.objects.values('CatName')
+    context = {'category_list': category_list}
+    return render(request, 'landingPage.html', context)
+
 def RestoList(request):
     resto_list = Restaurant.objects.all()
     context = {'resto_list': resto_list}
@@ -45,8 +51,6 @@ def RestoView(request, RestoID):
                                             )
     context = {'resto_deets': resto_deets, 'WaitList':WaitList, 'user':request.user}
     return render(request, 'restoView.html', context)
-
-
 
 def ReviewUpload(request, RestoID):
     if request.method == "POST":
@@ -120,7 +124,7 @@ def MakeCategory(request):
 
 def RestaurantManagement(request,RestoID):
     if not request.user.user_type == "RM" or (request.user.is_authenticated and not Restaurant.objects.get(RestoID = RestoID).MngID == request.user):
-        messages.success(request,'page you\'r tryring to access is forbidden')
+        messages.success(request,'page you\'re tryring to access is forbidden')
         return redirect('RestoList')
     elif request.method == 'POST':
         form = RestoEditForm(data = request.POST)
@@ -204,3 +208,25 @@ def SeeWaitlist(request, RestoID):
     context = {'form': form}
     return render(request,'wait_list.html',context)
 
+	
+#search
+def searchposts(request):
+    if request.method == 'GET':
+        query= request.GET.get('q')
+
+        submitbutton= request.GET.get('submit')
+        if query is not None:
+            lookups= Q(RestoID__icontains=query)
+
+            results= Restaurant.objects.filter(lookups).distinct()
+
+            context={'results': results,
+                     'submitbutton': submitbutton}
+
+            return render(request, 'search.html', context)
+
+        else:
+            return render(request, 'search.html')
+
+    else:
+        return render(request, 'search.html')
