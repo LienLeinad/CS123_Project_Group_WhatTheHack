@@ -37,12 +37,12 @@
 				<img src="{% static 'imgs/logo.svg' %}" class="img-logo" alt="logo">
 			</div>
 			<!-- Search bar -->
-			<form class="row search-row" method="POST">
+			<form class="row search-row" action="{% url 'search:searchposts' %}" method="GET" value="{{request.GET.q}}">
 				<div class="col-sm">
-					<input class="form-control search-bar" type="text" placeholder="Looking for a restaurant?" aria-label="Search">
+					<input class="form-control search-bar" type="text" placeholder="Looking for a restaurant?" aria-label="Search" name="q" value="{{request.GET.q}}">
 				</div>
 				<div class="col-sm">
-					<button type="submit" class="btn search-btn">Search</button>
+					<button type="submit" class="btn search-btn" name="submit" value="Search">Search</button>
 				</div>
 			</form>
 		</div>
