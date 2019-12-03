@@ -23,12 +23,12 @@ def average(list):
 
 
 
-#Mode average function using statistics
-# def mode(list):
-#     try:
-#         return statistics.mode(list)
-#     except:
-#         return statistics.mean(list)
+# Mode average function using statistics
+def mode(list):
+    try:
+        return statistics.mode(list)
+    except:
+        return statistics.mean(list)
 
 
 # Create your views here.
@@ -196,25 +196,24 @@ def SeatEntry(request,RestoID,id):
     time_waited = (seatedEntry.TimeOut - seatedEntry.TimeIn).total_seconds()//60
     seatedEntry.WaitTime = time_waited
     seatedEntry.save()
-    #fix the average of the restaurant
+    R9_12Time = WaitListEntry.objects.exclude(WaitTime = None).filter(PaxCount__gte = 9, PaxCount__lte = 12).values_list('WaitTime',flat = True)
+    R5_8Time = WaitListEntry.objects.exclude(WaitTime = None).filter(PaxCount__gte = 5, PaxCount__lte = 8).values_list('WaitTime',flat = True)
+    R1_4Time = WaitListEntry.objects.exclude(WaitTime = None).filter(PaxCount__gte = 1, PaxCount__lte = 4).values_list('WaitTime',flat = True)
     if seatedEntry.PaxCount >=  9 and seatedEntry.PaxCount <= 12:
-        # print(statistics.mode(WaitListEntry.objects.exclude(Seated = False, WaitTime = None).filter(PaxCount__lte = 12, PaxCount__gte = 9,Seated = True).values_list('WaitTime',flat = True)))
-        try:
-            RestoWait.WaitTime9_12 = statistics.mode(WaitListEntry.objects.exclude(WaitTime = None, Seatead = False).filter(PaxCount__lte = 12, PaxCount__gte = 9).values_list('WaitTime',flat = True))
-        except:
-            RestoWait.WaitTime9_12 = statistics.mean(WaitListEntry.objects.filter(PaxCount__lte = 12, PaxCount__gte = 9).values_list('WaitTime',flat = True))
+        RestoWait.WaitTime9_12 = mode(R9_12Time)
     elif seatedEntry.PaxCount >= 5 and seatedEntry.PaxCount <= 8:
-        try:
-            RestoWait.WaitTime5_8 = statistics.mode(WaitListEntry.objects.filter(PaxCount__lte = 8, PaxCount__gte = 5).values_list('WaitTime',flat = True))
-        except:
-            RestoWait.WaitTime5_8 = statistics.mean(WaitListEntry.objects.filter(PaxCount__lte = 8, PaxCount__gte = 5).values_list('WaitTime',flat = True))
-        # print( mode(WaitListEntry.objects.filter(PaxCount__lte = 8, PaxCount__gte = 5).WaitTime))
-    elif seatedEntry.PaxCount <= 4 and seatedEntry.PaxCount >= 1:
-        try:
-            RestoWait.WaitTime1_4 = statistics.mode(WaitListEntry.objects.filter(PaxCount__lte = 4, PaxCount__gte = 1).values_list('WaitTime',flat = True))
-        except:
-            RestoWait.WaitTime1_4 = statistics.mean(WaitListEntry.objects.filter(PaxCount__lte = 4, PaxCount__gte = 1).values_list('WaitTime',flat = True))
-        # print(mode(WaitListEntry.objects.filter(PaxCount__lte = 4, PaxCount__gte = 1).WaitTime))
+        RestoWait.WaitTime5_8 = mode(R5_8Time)
+    elif seatedEntry.PaxCount >= 1 and seatedEntry.PaxCount <=4:
+        RestoWait.WaitTime1_4 = mode(R1_4Time)
+    
+    
+    # print(R1_4Time)
+    #fix the average of the restaurant
+    # if seatedEntry.PaxCount >=  9 and seatedEntry.PaxCount <= 12:
+    #     # print(statistics.mode(WaitListEntry.objects.exclude(Seated = False, WaitTime = None).filter(PaxCount__lte = 12, PaxCount__gte = 9,Seated = True).values_list('WaitTime',flat = True)))
+    #         RestoWait.WaitTime9_12 = statistics.mode(WaitListEntry.objects.exclude(WaitTime = None, Seatead = False).filter(PaxCount__lte = 12, PaxCount__gte = 9).values_list('WaitTime',flat = True))
+        
+
     seatedEntry.save()
     RestoWait.save()
     return redirect('RestoView',RestoID = RestoID)
