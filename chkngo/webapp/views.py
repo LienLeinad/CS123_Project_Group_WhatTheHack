@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from .models import *
 from .forms import *
 from django.contrib import messages
+from django.contrib.auth import logout
 import uuid
 import datetime,statistics
 from django.db.models import Q
@@ -53,6 +54,10 @@ def LandingPage(request):
     category_list = Categories.objects.values('CatName')
     context = {'category_list': category_list}
     return render(request, 'landingPage.html', context)
+def logout_view(request):
+    logout(request)
+    return redirect('LandingPage')
+
 
 def RestoList(request):
     resto_list = Restaurant.objects.all()
@@ -62,7 +67,7 @@ def RestoList(request):
 def RestoView(request, RestoID):
     resto_deets = Restaurant.objects.get(RestoID = RestoID)
     WaitList = WaitListEntry.objects.filter(RestoID = RestoID,
-                                            # Seated = False
+                                            Seated = False
                                             )
     if request.method == 'POST':
         form = WaitListEntryForm(request.POST)
