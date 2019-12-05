@@ -38,8 +38,8 @@ class RMRegistrationForm(forms.ModelForm):
     INPUT_FORMATS = ['%H:%M',]
     RestoID = forms.CharField(max_length= 30, required = False, label = "Restaurant ID")
     Category = forms.ModelMultipleChoiceField(queryset = Categories.objects.all(), required = False)
-    Open_time = forms.TimeField(input_formats= INPUT_FORMATS, label= "Opening Time" )
-    Closing_time = forms.TimeField(input_formats= INPUT_FORMATS, label= "Closing Time" )
+    Open_time = forms.TimeField(input_formats= INPUT_FORMATS, label= "Opening Time", required = False )
+    Closing_time = forms.TimeField(input_formats= INPUT_FORMATS, label= "Closing Time",required = False )
     
     class Meta:
         model = Restaurant
