@@ -101,15 +101,15 @@ def ReviewUpload(request, RestoID):
         context= {'form':form}
         return render (request, 'review_upload.html', context)
 
-def Login(request):
-    if request.method == "POST":
-        form = AuthenticationForm(data = request.POST)
-        if (form.is_valid):
-            # log in the user
-            return redirect('LandingPage')
-    else:
-        form = AuthenticationForm()
-    return render(request,'login.html', {'form':form})
+# def Login(request):
+#     if request.method == "POST":
+#         form = AuthenticationForm(data = request.POST)
+#         if (form.is_valid):
+#             # log in the user
+#             return redirect('LandingPage')
+#     else:
+#         form = AuthenticationForm()
+#     return render(request,'login.html', {'form':form})
 
 def Register(request):
     if request.method =="POST":
