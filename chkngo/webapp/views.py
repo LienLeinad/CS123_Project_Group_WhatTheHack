@@ -7,7 +7,7 @@ import uuid
 import datetime,statistics
 from django.db.models import Q
 from django.contrib.auth.forms import AuthenticationForm
-
+from django.contrib.auth import logout
 #A simple mean Average Algorithm, input must be a list of a certain element, outputs integer mean
 def average(list):
     AveNum = 0
@@ -48,12 +48,18 @@ def mode(list):
 #         form = WaitListEntryForm()
 #     context = {'form': form}
 #     return render(request,'wait_list.html',context)
-
+def logout_view(request):
+    logout(request)
+    return redirect('LandingPage')
 
 def LandingPage(request):
-    category_list = Categories.objects.values('CatName')
-    context = {'category_list': category_list}
-    return render(request, 'landingPage.html', context)
+    if request.user.user_type == "CU":
+        category_list = Categories.objects.values('CatName')
+        context = {'category_list': category_list}
+        return render(request, 'landingPage.html', context)
+    elif request.user.user_type == "RM":
+        RestoToView = Restaurant.objects.get(MngID = request.user)
+        return redirect('RestoView', RestoID = RestoToView.RestoID)
 
 def RestoList(request):
     resto_list = Restaurant.objects.all()
