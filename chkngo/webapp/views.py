@@ -6,6 +6,7 @@ from django.contrib import messages
 import uuid
 import datetime,statistics
 from django.db.models import Q
+from django.contrib.auth.forms import AuthenticationForm
 
 #A simple mean Average Algorithm, input must be a list of a certain element, outputs integer mean
 def average(list):
@@ -44,7 +45,7 @@ def mode(list):
 #             temp_WLE.save()
 #             return redirect('RestoView', RestoID = RestoID)
 #     else:
-#         form = WaitListEntryForm() 
+#         form = WaitListEntryForm()
 #     context = {'form': form}
 #     return render(request,'wait_list.html',context)
 
@@ -74,7 +75,7 @@ def RestoView(request, RestoID):
             temp_WLE.save()
             return redirect('RestoView', RestoID = RestoID)
     else:
-        form = WaitListEntryForm() 
+        form = WaitListEntryForm()
     # context = {}
     context = {'resto_deets': resto_deets, 'WaitList':WaitList, 'user':request.user,'form': form}
     return render(request, 'restoView.html', context)
@@ -99,6 +100,16 @@ def ReviewUpload(request, RestoID):
         form = ReviewForm()
         context= {'form':form}
         return render (request, 'review_upload.html', context)
+
+# def Login(request):
+#     if request.method == "POST":
+#         form = AuthenticationForm(data = request.POST)
+#         if (form.is_valid):
+#             # log in the user
+#             return redirect('LandingPage')
+#     else:
+#         form = AuthenticationForm()
+#     return render(request,'login.html', {'form':form})
 
 def Register(request):
     if request.method =="POST":
@@ -205,14 +216,14 @@ def SeatEntry(request,RestoID,id):
         RestoWait.WaitTime5_8 = mode(R5_8Time)
     elif seatedEntry.PaxCount >= 1 and seatedEntry.PaxCount <=4:
         RestoWait.WaitTime1_4 = mode(R1_4Time)
-    
-    
+
+
     # print(R1_4Time)
     #fix the average of the restaurant
     # if seatedEntry.PaxCount >=  9 and seatedEntry.PaxCount <= 12:
     #     # print(statistics.mode(WaitListEntry.objects.exclude(Seated = False, WaitTime = None).filter(PaxCount__lte = 12, PaxCount__gte = 9,Seated = True).values_list('WaitTime',flat = True)))
     #         RestoWait.WaitTime9_12 = statistics.mode(WaitListEntry.objects.exclude(WaitTime = None, Seatead = False).filter(PaxCount__lte = 12, PaxCount__gte = 9).values_list('WaitTime',flat = True))
-        
+
 
     seatedEntry.save()
     RestoWait.save()
@@ -220,7 +231,7 @@ def SeatEntry(request,RestoID,id):
 
 # IMPORTANT: NOT A VIEW TO SEE THE WAIT LIST ANYMORE, JUST A TEST VIEW FOR ADDING WAITLIST ENTRIES BEFORE THE FRONT END GETS INTEGRATED TO RESTOVIEW
 
-	
+
 #search
 def searchposts(request):
     if request.method == 'GET':
