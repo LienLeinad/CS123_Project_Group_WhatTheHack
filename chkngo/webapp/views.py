@@ -231,7 +231,7 @@ def SeatEntry(request,RestoID,id):
 
 # IMPORTANT: NOT A VIEW TO SEE THE WAIT LIST ANYMORE, JUST A TEST VIEW FOR ADDING WAITLIST ENTRIES BEFORE THE FRONT END GETS INTEGRATED TO RESTOVIEW
 
-
+#Q(RestoID__icontains=query) | 
 #search
 def searchposts(request):
     if request.method == 'GET':
@@ -239,10 +239,21 @@ def searchposts(request):
 
         submitbutton= request.GET.get('submit')
         if query is not None:
-            lookups= Q(RestoID__icontains=query)
+            res=Restaurant.objects.all()
+            tmp = Q(CatName__icontains=query)
+            cats=Categories.objects.filter(tmp).distinct()
+            print(cats)
+            lookups=Q()
+
+            for cn in cats:
+                for rr in cn.Restaurants.all():
+                    print(rr.RestoID)
+                    lookups = lookups | Q(RestoID = rr.RestoID)
+            lookups= lookups | Q(RestoID__icontains=query)
+            print(lookups)
 
             results= Restaurant.objects.filter(lookups).distinct()
-
+            print(results)
             context={'results': results,
                      'submitbutton': submitbutton}
 
