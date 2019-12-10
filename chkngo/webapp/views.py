@@ -57,8 +57,8 @@ def LandingPage(request):
 
 def RestoList(request):
     resto_list = Restaurant.objects.all()
-    context = {'resto_list': resto_list}
-    return render(request, 'resto_list.html', context)
+    # context = {'resto_list': resto_list}
+    return render(request, 'resto_list.html')
 
 def RestoView(request, RestoID):
     resto_deets = Restaurant.objects.get(RestoID = RestoID)
@@ -257,10 +257,10 @@ def searchposts(request):
             context={'results': results,
                      'submitbutton': submitbutton}
 
-            return render(request, 'search.html', context)
+            return render(request, 'resto_list.html', context)
 
         else:
-            return render(request, 'search.html')
+            return render(request, 'resto_list.html')
 
     else:
-        return render(request, 'search.html')
+        return render(request, 'resto_list.html')
