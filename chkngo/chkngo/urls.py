@@ -27,6 +27,7 @@ urlpatterns = [
     path('restaurants/', views.RestoList, name = "RestoList"),
     path('restaurants/<RestoID>/', views.RestoView, name = "RestoView"),
     path('restaurants/<RestoID>/manage',views.RestaurantManagement, name = 'RestoManage'),
+    path('category/<CatName>/', views.RestoCat, name = 'RestoCat'),
     path('restaurants/<RestoID>/ReviewUpload/', views.ReviewUpload, name = 'ReviewUpload'),
     # path('restaurants/<RestoID>/SeeWaitList/', views.SeeWaitlist, name = 'SeeWaitList'),
     path('restaurants/<RestoID>/DeleteEntry/<first_name>/<last_name>/<id>/', views.DeleteEntry, name ="DeleteEntry"),
