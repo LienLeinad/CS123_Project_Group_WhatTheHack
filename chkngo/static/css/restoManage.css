@@ -10,13 +10,21 @@
 	padding: 0.5vw;
 }
 
+ion-icon {
+	font-size: 3.5vh;
+}
+
 .input-btn {
 	background-color: white;
 	border: 1px solid #323031;
 	border-radius: 5px;
 }
 
-.input-btn:hover, .logout-btn:hover {
+.back-btn {
+	align-content: center;
+}
+
+.input-btn:hover, .logout-btn:hover, .back-btn:hover {
 	background-color: #323031;
 	border-color: none;
 	color: white;
@@ -38,7 +46,7 @@
 
 @media (min-width: 320px) {
 	.title {
-		margin-bottom: 5vw;
+		margin-bottom: 4vw;
 		font-size: 12vw;
 	}
 
@@ -58,6 +66,10 @@
 
 	label[for=id_Open_time], label[for=id_Closing_time], label[for=id_Address], label[for=id_Landline], label[for=id_Contact] {
 		width: 30vw;
+	}
+
+	.back-btn {
+		margin-bottom: 2vh;
 	}
 }
 
@@ -90,5 +102,9 @@
 
 	label[for=id_Open_time], label[for=id_Closing_time], label[for=id_Address], label[for=id_Landline], label[for=id_Contact] {
 		width: 8vw;
+	}
+
+	.back-btn {
+		margin-bottom: 1vh;
 	}
 }
