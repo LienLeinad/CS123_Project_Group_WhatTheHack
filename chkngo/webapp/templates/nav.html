@@ -28,10 +28,13 @@
 				
 			</li>
 		</ul>
-		<button class="btn user-btn navbar-btn">Sign Up</button>
-		<button class="btn user-btn navbar-btn">Sign In</button>
-		<button class="btn user-btn navbar-btn">Logout</button>
-	</div>
+		{% if user.is_authenticated == True%}
+		<a class="btn user-btn navbar-btn" href = "{% url 'Logout' %}">Logout</a>
+		{% else %}
+		<a class="btn user-btn navbar-btn" href = '{% url "Register" %}'>Sign Up</a>
+		<a class="btn user-btn navbar-btn" href = "{% url 'Login' %}">Sign In</a>
+		{% endif %}
+	</div> 
 	<!-- -->
 
 </nav>
