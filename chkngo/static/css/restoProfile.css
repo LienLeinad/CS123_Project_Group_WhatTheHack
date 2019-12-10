@@ -110,7 +110,7 @@
 /******************************/
 
 @media (min-width: 320px) {
-	.restoProfile-body {
+	body {
 		padding: 2vw;
 	}
 
@@ -190,7 +190,7 @@
 }
 
 @media (min-width: 992px) {
-	.restoProfile-body {
+	body {
 		padding: 0;
 	}
 

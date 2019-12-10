@@ -32,13 +32,12 @@ urlpatterns = [
     path('restaurants/<RestoID>/DeleteEntry/<first_name>/<last_name>/<id>/', views.DeleteEntry, name ="DeleteEntry"),
     path('restaurants/<RestoID>/SeatEntry/<id>', views.SeatEntry, name = "SeatEntry"),
     path('login/', auth_views.LoginView.as_view(template_name = 'login.html'), name = 'Login'),
-    # path('login/', views.Login, name = "Login"),
     path('logout/', auth_views.LogoutView.as_view(template_name = 'logout.html'),name = 'Logout'),
     path('register/', views.Register, name = 'Register'),
     path('register/make_category', views.MakeCategory, name = "MakeCategory"),
 	path('search/', views.searchposts, name="Search"),
 	url(r'^search/', include(('webapp.urls',"Search"), namespace='search')),
-
+    
 ]
 
 if settings.DEBUG:
