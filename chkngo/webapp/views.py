@@ -6,7 +6,8 @@ from django.contrib import messages
 import uuid
 import datetime,statistics
 from django.db.models import Q
-
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import logout
 #A simple mean Average Algorithm, input must be a list of a certain element, outputs integer mean
 def average(list):
     AveNum = 0
@@ -44,25 +45,31 @@ def mode(list):
 #             temp_WLE.save()
 #             return redirect('RestoView', RestoID = RestoID)
 #     else:
-#         form = WaitListEntryForm() 
+#         form = WaitListEntryForm()
 #     context = {'form': form}
 #     return render(request,'wait_list.html',context)
-
+def logout_view(request):
+    logout(request)
+    return redirect('LandingPage')
 
 def LandingPage(request):
-    category_list = Categories.objects.values('CatName')
-    context = {'category_list': category_list}
-    return render(request, 'landingPage.html', context)
+    if request.user.user_type == "CU":
+        category_list = Categories.objects.values('CatName')
+        context = {'category_list': category_list}
+        return render(request, 'landingPage.html', context)
+    elif request.user.user_type == "RM":
+        RestoToView = Restaurant.objects.get(MngID = request.user)
+        return redirect('RestoView', RestoID = RestoToView.RestoID)
 
 def RestoList(request):
     resto_list = Restaurant.objects.all()
-    context = {'resto_list': resto_list}
-    return render(request, 'resto_list.html', context)
+    # context = {'resto_list': resto_list}
+    return render(request, 'resto_list.html')
 
 def RestoView(request, RestoID):
     resto_deets = Restaurant.objects.get(RestoID = RestoID)
     WaitList = WaitListEntry.objects.filter(RestoID = RestoID,
-                                            # Seated = False
+                                            Seated = False
                                             )
     if request.method == 'POST':
         form = WaitListEntryForm(request.POST)
@@ -74,7 +81,7 @@ def RestoView(request, RestoID):
             temp_WLE.save()
             return redirect('RestoView', RestoID = RestoID)
     else:
-        form = WaitListEntryForm() 
+        form = WaitListEntryForm()
     # context = {}
     context = {'resto_deets': resto_deets, 'WaitList':WaitList, 'user':request.user,'form': form}
     return render(request, 'restoView.html', context)
@@ -99,6 +106,16 @@ def ReviewUpload(request, RestoID):
         form = ReviewForm()
         context= {'form':form}
         return render (request, 'review_upload.html', context)
+
+# def Login(request):
+#     if request.method == "POST":
+#         form = AuthenticationForm(data = request.POST)
+#         if (form.is_valid):
+#             # log in the user
+#             return redirect('LandingPage')
+#     else:
+#         form = AuthenticationForm()
+#     return render(request,'login.html', {'form':form})
 
 def Register(request):
     if request.method =="POST":
@@ -208,14 +225,14 @@ def SeatEntry(request,RestoID,id):
         RestoWait.WaitTime5_8 = mode(R5_8Time)
     elif seatedEntry.PaxCount >= 1 and seatedEntry.PaxCount <=4:
         RestoWait.WaitTime1_4 = mode(R1_4Time)
-    
-    
+
+
     # print(R1_4Time)
     #fix the average of the restaurant
     # if seatedEntry.PaxCount >=  9 and seatedEntry.PaxCount <= 12:
     #     # print(statistics.mode(WaitListEntry.objects.exclude(Seated = False, WaitTime = None).filter(PaxCount__lte = 12, PaxCount__gte = 9,Seated = True).values_list('WaitTime',flat = True)))
     #         RestoWait.WaitTime9_12 = statistics.mode(WaitListEntry.objects.exclude(WaitTime = None, Seatead = False).filter(PaxCount__lte = 12, PaxCount__gte = 9).values_list('WaitTime',flat = True))
-        
+
 
     seatedEntry.save()
     RestoWait.save()
@@ -223,7 +240,7 @@ def SeatEntry(request,RestoID,id):
 
 # IMPORTANT: NOT A VIEW TO SEE THE WAIT LIST ANYMORE, JUST A TEST VIEW FOR ADDING WAITLIST ENTRIES BEFORE THE FRONT END GETS INTEGRATED TO RESTOVIEW
 
-	
+#Q(RestoID__icontains=query) | 
 #search
 def searchposts(request):
     if request.method == 'GET':
@@ -231,17 +248,28 @@ def searchposts(request):
 
         submitbutton= request.GET.get('submit')
         if query is not None:
-            lookups= Q(RestoID__icontains=query)
+            res=Restaurant.objects.all()
+            tmp = Q(CatName__icontains=query)
+            cats=Categories.objects.filter(tmp).distinct()
+            print(cats)
+            lookups=Q()
+
+            for cn in cats:
+                for rr in cn.Restaurants.all():
+                    print(rr.RestoID)
+                    lookups = lookups | Q(RestoID = rr.RestoID)
+            lookups= lookups | Q(RestoID__icontains=query)
+            print(lookups)
 
             results= Restaurant.objects.filter(lookups).distinct()
-
+            print(results)
             context={'results': results,
                      'submitbutton': submitbutton}
 
-            return render(request, 'search.html', context)
+            return render(request, 'resto_list.html', context)
 
         else:
-            return render(request, 'search.html')
+            return render(request, 'resto_list.html')
 
     else:
-        return render(request, 'search.html')
+        return render(request, 'resto_list.html')
