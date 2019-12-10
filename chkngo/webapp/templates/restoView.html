@@ -122,7 +122,7 @@
 						<h6>{{w.last_name}}, {{ w.first_name }}</h6>
 						<h6>Head Count : {{w.PaxCount}}</h6>
 					</div>
-					{% if not resto_deets.MngID == user %}
+					{% if resto_deets.MngID == user %}
 					<div class="col-4 waitlist-btns">
 						<a class="btn confirm-btn" onclick="fade(this)" type="submit" href = "SeatEntry/{{ w.id }}"><ion-icon name="checkmark"></ion-icon></a>
 						<a class="btn delete-btn" onclick="fade(this)" type="submit" href = "DeleteEntry/{{ w.first_name }}/{{ w.last_name }}/{{ w.id }}/"><ion-icon name="trash"></ion-icon></a>
