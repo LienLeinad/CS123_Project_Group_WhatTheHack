@@ -66,6 +66,11 @@ def RestoList(request):
     # context = {'resto_list': resto_list}
     return render(request, 'resto_list.html')
 
+def RestoCat(request, CatName):
+    cat_list = Restaurant.objects.filter(Category = Categories.objects.get(CatName = CatName))
+    context = {'cat_list': cat_list}
+    return render(request, 'resto_list.html', context)
+
 def RestoView(request, RestoID):
     resto_deets = Restaurant.objects.get(RestoID = RestoID)
     WaitList = WaitListEntry.objects.filter(RestoID = RestoID,
@@ -133,7 +138,6 @@ def Register(request):
                     Add = form2.cleaned_data.get('Address')
                     Land = form2.cleaned_data.get('Landline')
                     Cont = form2.cleaned_data.get('Contact')
-                    Cats = form2.cleaned_data.get('Category')
                     temp_Res = Restaurant(RestoID = form2.cleaned_data.get('RestoID'),
                                         MngID = temp_user,
                                         Open_time = opTime,
@@ -144,8 +148,6 @@ def Register(request):
                                         )
                     print(temp_Res)
                     temp_Res.save()
-                    for ii in Cats:
-                        temp_Res.Category.add(ii)
                     print(Restaurant.objects.all())
             messages.success(request,f'Account Created for {username}! go ahead and log in!')
             return redirect('Register')
@@ -240,7 +242,7 @@ def SeatEntry(request,RestoID,id):
 
 # IMPORTANT: NOT A VIEW TO SEE THE WAIT LIST ANYMORE, JUST A TEST VIEW FOR ADDING WAITLIST ENTRIES BEFORE THE FRONT END GETS INTEGRATED TO RESTOVIEW
 
-#Q(RestoID__icontains=query) | 
+#Q(RestoID__icontains=query) |
 #search
 def searchposts(request):
     if request.method == 'GET':

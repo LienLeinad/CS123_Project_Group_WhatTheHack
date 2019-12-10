@@ -43,7 +43,7 @@ class RMRegistrationForm(forms.ModelForm):
     
     class Meta:
         model = Restaurant
-        fields= ['RestoID','Open_time','Closing_time','Address','Landline','Contact','Category']
+        fields= ['RestoID','Open_time','Closing_time','Address','Landline','Contact']
 
 
 class CategoryForm(forms.ModelForm):
