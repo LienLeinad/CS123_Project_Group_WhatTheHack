@@ -53,6 +53,10 @@ def logout_view(request):
     return redirect('LandingPage')
 
 def LandingPage(request):
+    if not request.user.is_authenticated:
+        category_list = Categories.objects.values('CatName')
+        context = {'category_list': category_list}
+        return render(request, 'landingPage.html', context)
     if request.user.user_type == "CU":
         category_list = Categories.objects.values('CatName')
         context = {'category_list': category_list}
