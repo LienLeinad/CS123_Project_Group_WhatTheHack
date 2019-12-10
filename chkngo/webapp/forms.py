@@ -40,10 +40,10 @@ class RMRegistrationForm(forms.ModelForm):
     Category = forms.ModelMultipleChoiceField(queryset = Categories.objects.all(), required = False)
     Open_time = forms.TimeField(input_formats= INPUT_FORMATS, label= "Opening Time", required = False )
     Closing_time = forms.TimeField(input_formats= INPUT_FORMATS, label= "Closing Time",required = False )
-    
+    MngID = forms.ModelChoiceField(queryset = CustomUser.objects.filter(user_type = 'RM'), required = False)
     class Meta:
         model = Restaurant
-        fields= ['RestoID','Open_time','Closing_time','Address','Landline','Contact']
+        fields= ['RestoID','Open_time','Closing_time','Address','Landline','Contact', 'Category','MngID']
 
 
 class CategoryForm(forms.ModelForm):
