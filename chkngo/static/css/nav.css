@@ -6,15 +6,19 @@ nav {
 	width: 100%;
 }
 
-.search-btn:hover {
+.search-btn:hover, .user-btn:hover {
 	background-color: #323031;
 	border-color: none;
 	color: white;
 }
 
-.search-btn {
+.search-btn, .user-btn {
 	background-color: none;
 	border: 1px solid #323031;
+}
+
+.input-group{
+	min-width: 50vw;
 }
 
 @media (min-width: 320px) {
@@ -46,5 +50,9 @@ nav {
 
 	.search-btn {
 		margin-top: 0;
+	}
+	.user-btn{
+		margin-left: 1vw;
+		margin-right: 1vw;
 	}
 }		

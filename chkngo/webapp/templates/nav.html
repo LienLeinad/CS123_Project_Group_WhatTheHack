@@ -17,17 +17,20 @@
 			<li class="nav-item nav-option">
 				<form action="{% url 'search:searchposts' %}" method="GET" value="{{request.GET.q}}"> <!-- search bar stuff -->
 					<div class="row">
-						<div class="col-sm">
+						<div class="col-sm input-group">
 							<input class="form-control search-bar" type="text" placeholder="Looking for a restaurant?" aria-label="Search" name="q" value="{{request.GET.q}}">
-						</div>
-						<div class="col-sm search-btn-col">
-							<button type="submit" class="btn search-btn" name="submit" value="Search">Submit</button>
+							<div class="input-group-append">
+							    <button class="btn search-btn" type="submit" name="submit" value="Search">Search</button>
+							</div>
 						</div>
 					</div>
 				</form>
 				
 			</li>
 		</ul>
+		<button class="btn user-btn navbar-btn">Sign Up</button>
+		<button class="btn user-btn navbar-btn">Sign In</button>
+		<button class="btn user-btn navbar-btn">Logout</button>
 	</div>
 	<!-- -->
 
