@@ -38,6 +38,7 @@ urlpatterns = [
     path('register/make_category', views.MakeCategory, name = "MakeCategory"),
 	path('search/', views.searchposts, name="Search"),
 	url(r'^search/', include(('webapp.urls',"Search"), namespace='search')),
+    #test
 
 ]
 
