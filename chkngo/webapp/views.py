@@ -116,6 +116,7 @@ def Register(request):
                     Add = form2.cleaned_data.get('Address')
                     Land = form2.cleaned_data.get('Landline')
                     Cont = form2.cleaned_data.get('Contact')
+                    Cats = form2.cleaned_data.get('Category')
                     temp_Res = Restaurant(RestoID = form2.cleaned_data.get('RestoID'),
                                         MngID = temp_user,
                                         Open_time = opTime,
@@ -126,6 +127,8 @@ def Register(request):
                                         )
                     print(temp_Res)
                     temp_Res.save()
+                    for ii in Cats:
+                        temp_Res.Category.add(ii)
                     print(Restaurant.objects.all())
             messages.success(request,f'Account Created for {username}! go ahead and log in!')
             return redirect('Register')

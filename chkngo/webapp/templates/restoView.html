@@ -52,11 +52,23 @@
 		</div>
 		<!--  -->
 
-		<!-- Information -->
-		<div class="row">
-			<!-- Resto Image -->
-			<div class="col-sm-4 resto-img-col">
-				<img src="https://images.summitmedia-digital.com/spotph/images/2018/07/27/BlackScoop-12.jpg" class="resto-img">
+			<!-- Waiting time availability -->
+			<div class="row avbtly">
+				<div class="col-sm avbtly-box">
+					<h4>1-4 pax</h4>
+					<h2>{{resto_deets.WaitTime1_4}} min</h2>
+				</div>
+				<div class="col-sm avbtly-box">
+					<h4>5-8 pax</h4>
+					<h2>{{resto_deets.WaitTime5_8}} min</h2>
+				</div>
+				<div class="col-sm avbtly-box">
+					<h4>9-12 pax</h4>
+
+					<h2>{{ resto_deets.WaitTime9_12 }} min</h2>
+
+				</div>
+
 			</div>
 
 			<!-- Resto Information Div
@@ -69,11 +81,28 @@
 					<a href="ReviewUpload" class="btn btn-option">Rate</a>
 					<h2>{{resto_deets.Rating}}/5</h2>
 				</div>
+				<!-- Resto Information Div
+					 This includes also the rating input -->
+				<div class="col info-col">
+					<!-- Button menu -->
+					<div class="row btn-menu">
 
-				<!-- Information -->
-				<h5>Opening Hours:</h5>
-				<h6>Today {{ resto_deets.Open_time }} - {{ resto_deets.Closing_time }}</h6>
-				<!-- <h6>View more</h6> -->
+						{% if resto_deets.MngID == user %}
+						<a href="manage" class="btn btn-option">Edit</a>
+						{% endif %}
+						<button class="btn btn-option" onclick="showList('waitlist')">See Wait list</button>
+						{% if not resto_deets.MngID == user %}
+						<a href="ReviewUpload" class="btn btn-option">Rate</a>
+						{% endif %}
+
+						<h2>{{resto_deets.Rating}}/5</h2>
+					</div>
+
+					<!-- Information -->
+					<h5>Opening Hours:</h5>
+					<h6>Today {{ resto_deets.Open_time }} - {{ resto_deets.Closing_time }}</h6>
+					<!-- <h6>View more</h6> -->
+
 
 				<br>
 
@@ -102,15 +131,33 @@
 				<button class="btn add-btn shadow" data-toggle="modal" data-target="#addToWaitList">+ Add to Wait List</button>
 			</div>
 
-			<!-- Waitlister -->
-			{% for w in WaitList %}
-			<div id="row" class="row waitlist-row wait-row shadow">
-				<div class="col-1">
-					<h6 class="waitlistNum">#</h6>
+		<!-- Waitlist -->
+			<div id="waitlist" class="container waitlist-container">
+				<h1 class="waitlist-title display-4">wait list</h1>
+
+				{% if resto_deets.MngID == user %}
+				<div class="row waitlist-div wait-menu">
+					<button class="btn add-btn shadow" data-toggle="modal" data-target="#addToWaitList">+ Add to Wait List</button>
 				</div>
-				<div class="col">
-					<h6>{{w.last_name}}, {{ w.first_name }}</h6>
-					<h6>Head Count : {{w.PaxCount}}</h6>
+				{% endif %}
+
+				<!-- Waitlister -->
+				{% for w in WaitList %}
+				<div id="row" class="row waitlist-row wait-row shadow">
+					<div class="col-1">
+						<h6 class="waitlistNum">#</h6>
+					</div>
+					<div class="col">
+						<h6>{{w.last_name}}, {{ w.first_name }}</h6>
+						<h6>Head Count : {{w.PaxCount}}</h6>
+					</div>
+					{% if not resto_deets.MngID == user %}
+					<div class="col-4 waitlist-btns">
+						<a class="btn confirm-btn" onclick="fade(this)" type="submit" href = "SeatEntry/{{ w.id }}"><ion-icon name="checkmark"></ion-icon></a>
+						<a class="btn delete-btn" onclick="fade(this)" type="submit" href = "DeleteEntry/{{ w.first_name }}/{{ w.last_name }}/{{ w.id }}/"><ion-icon name="trash"></ion-icon></a>
+					</div>
+					{% endif %}
+
 				</div>
 				<div class="col-4 waitlist-btns">
 					<a class="btn confirm-btn" onclick="fade(this)" type="submit" href = "SeatEntry/{{ w.id }}"><ion-icon name="checkmark"></ion-icon></a>
