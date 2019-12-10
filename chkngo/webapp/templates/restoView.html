@@ -68,9 +68,13 @@
 				<div class="col info-col">
 					<!-- Button menu -->
 					<div class="row btn-menu">
+						{% if resto_deets.MngID == user %}
 						<a href="manage" class="btn btn-option">Edit</a>
+						{% endif %}
 						<button class="btn btn-option" onclick="showList('waitlist')">See Wait list</button>
+						{% if not resto_deets.MngID == user %}
 						<a href="ReviewUpload" class="btn btn-option">Rate</a>
+						{% endif %}
 						<h2>{{resto_deets.Rating}}/5</h2>
 					</div>
 
@@ -102,9 +106,11 @@
 		<!-- Waitlist -->
 			<div id="waitlist" class="container waitlist-container">
 				<h1 class="waitlist-title display-4">wait list</h1>
+				{% if resto_deets.MngID == user %}
 				<div class="row waitlist-div wait-menu">
 					<button class="btn add-btn shadow" data-toggle="modal" data-target="#addToWaitList">+ Add to Wait List</button>
 				</div>
+				{% endif %}
 
 				<!-- Waitlister -->
 				{% for w in WaitList %}
@@ -116,27 +122,14 @@
 						<h6>{{w.last_name}}, {{ w.first_name }}</h6>
 						<h6>Head Count : {{w.PaxCount}}</h6>
 					</div>
+					{% if not resto_deets.MngID == user %}
 					<div class="col-4 waitlist-btns">
 						<a class="btn confirm-btn" onclick="fade(this)" type="submit" href = "SeatEntry/{{ w.id }}"><ion-icon name="checkmark"></ion-icon></a>
 						<button class="btn delete-btn" onclick="fade(this)" type="submit"><ion-icon name="trash"></ion-icon></button>
 					</div>
+					{% endif %}
 				</div>
 				{% endfor %}
-				<!--  -->
-				<!-- Waitlister -->
-				<!-- <div id="row" class="row waitlist-row wait-row shadow">
-					<div class="col-1">
-						<h6 class="waitlistNum">#</h6>
-					</div>
-					<div class="col">
-						<h6>Jessica Manzano</h6>
-						<h6>09097864321</h6>
-					</div>
-					<div class="col-4 waitlist-btns">
-						<button class="btn confirm-btn" onclick="fade(this)" type="submit"><ion-icon name="checkmark"></ion-icon></button>
-						<button class="btn delete-btn" onclick="fade(this)" type="submit"><ion-icon name="trash"></ion-icon></button>
-					</div>
-				</div> -->
 				<!--  -->
 
 				<!-- Modal -->
