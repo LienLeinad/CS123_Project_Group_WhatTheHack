@@ -125,7 +125,7 @@
 					{% if not resto_deets.MngID == user %}
 					<div class="col-4 waitlist-btns">
 						<a class="btn confirm-btn" onclick="fade(this)" type="submit" href = "SeatEntry/{{ w.id }}"><ion-icon name="checkmark"></ion-icon></a>
-						<button class="btn delete-btn" onclick="fade(this)" type="submit"><ion-icon name="trash"></ion-icon></button>
+						<a class="btn delete-btn" onclick="fade(this)" type="submit" href = "DeleteEntry/{{ w.first_name }}/{{ w.last_name }}/{{ w.id }}/"><ion-icon name="trash"></ion-icon></a>
 					</div>
 					{% endif %}
 				</div>
