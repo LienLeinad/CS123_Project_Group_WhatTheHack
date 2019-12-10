@@ -69,7 +69,7 @@ def RestoList(request):
 def RestoView(request, RestoID):
     resto_deets = Restaurant.objects.get(RestoID = RestoID)
     WaitList = WaitListEntry.objects.filter(RestoID = RestoID,
-                                            # Seated = False
+                                            Seated = False
                                             )
     if request.method == 'POST':
         form = WaitListEntryForm(request.POST)

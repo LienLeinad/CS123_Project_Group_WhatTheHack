@@ -47,7 +47,7 @@
 			</div>
 			<div class="col-sm avbtly-box">
 				<h4>9-12 pax</h4>
-				<h2>{{ resto_deets.WaitTime9_12 }}</h2>
+				<h2>{{ resto_deets.WaitTime9_12 }} min</h2>
 			</div>
 		</div>
 		<!--  -->
@@ -64,9 +64,13 @@
 			<div class="col info-col">
 				<!-- Button menu -->
 				<div class="row btn-menu">
+					{% if resto_deets.MngID == user %}
 					<a href="manage" class="btn btn-option">Edit</a>
+					{% endif %}
 					<button class="btn btn-option" onclick="showList('waitlist')">See Wait list</button>
+					{% if not resto_deets.MngID == user %}
 					<a href="ReviewUpload" class="btn btn-option">Rate</a>
+					{% endif %}
 					<h2>{{resto_deets.Rating}}/5</h2>
 				</div>
 
@@ -99,7 +103,9 @@
 		<div id="waitlist" class="container waitlist-container">
 			<h1 class="waitlist-title display-4">wait list</h1>
 			<div class="row waitlist-div wait-menu">
+				{% if resto_deets.MngID == user %}
 				<button class="btn add-btn shadow" data-toggle="modal" data-target="#addToWaitList">+ Add to Wait List</button>
+				{% endif %}
 			</div>
 
 			<!-- Waitlister -->
@@ -112,10 +118,13 @@
 					<h6>{{w.last_name}}, {{ w.first_name }}</h6>
 					<h6>Head Count : {{w.PaxCount}}</h6>
 				</div>
+				{% if resto_deets.MngID == user %}
 				<div class="col-4 waitlist-btns">
 					<a class="btn confirm-btn" onclick="fade(this)" type="submit" href = "SeatEntry/{{ w.id }}"><ion-icon name="checkmark"></ion-icon></a>
 					<button class="btn delete-btn" onclick="fade(this)" type="submit"><ion-icon name="trash"></ion-icon></button>
 				</div>
+				{% endif %}
+
 			</div>
 			{% endfor %}
 			<!--  -->
