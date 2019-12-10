@@ -76,12 +76,13 @@
         {% else %}
             <div class="resto-listing row">
 
-                <h1 style="width: 100%;">This is the search page!</h1>
+                <h1 style="width: 100%;">Results:</h1>
                 {% for cat in cat_list %}
-                  <p></p>
-                  <p>{{cat}}</p>
+
+                  <a href="/restaurants/{{cat}}" class="col-sm cat-col shadow"><div><h4>{{ cat }}</h4></div></a>
+
                 {% endfor %}
-                <h4 style="margin-top: 1vw;">Use the navigation bar to go around the website</h4>
+                <h4 style="margin-top: 1vw;"></h4>
             </div>
         {% endif %}
     </div>
