@@ -12,10 +12,7 @@
 	<div class="collapse navbar-collapse" id="navbarSupportedContent">
 		<ul class="navbar-nav mr-auto">
 			<li class="nav-item active">
-				<a class="nav-link" href="">Home<span class="sr-only">(current)</span></a>
-			</li>
-			<li class="nav-item nav-option">
-				<a class="nav-link" href="#">View Categories</a>
+				<a class="nav-link" href="{% url 'LandingPage' %}">Home<span class="sr-only">(current)</span></a>
 			</li>
 			<li class="nav-item nav-option">
 				<form action="{% url 'search:searchposts' %}" method="GET" value="{{request.GET.q}}"> <!-- search bar stuff -->
