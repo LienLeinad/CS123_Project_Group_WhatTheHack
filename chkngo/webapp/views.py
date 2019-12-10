@@ -63,8 +63,8 @@ def LandingPage(request):
 
 def RestoList(request):
     resto_list = Restaurant.objects.all()
-    context = {'resto_list': resto_list}
-    return render(request, 'resto_list.html', context)
+    # context = {'resto_list': resto_list}
+    return render(request, 'resto_list.html')
 
 def RestoView(request, RestoID):
     resto_deets = Restaurant.objects.get(RestoID = RestoID)
@@ -128,39 +128,27 @@ def Register(request):
             print(form.cleaned_data.get('user_type'))
             if form.cleaned_data.get('user_type') == 'RM':
                 if form2.is_valid():
-                    newForm = RMRegistrationForm(Open_time = form2.cleaned_data.get('Open_time'),
-                                                Closing_time = form2.cleaned_data.get('Closing_time'),
-                                                Address = form2.cleaned_data.get('Address'),
-                                                Landline = form2.cleaned_data.get('Landline'),
-                                                Contact = form2.cleaned_data.get('Contact'),
-                                                Category = form2.cleaned_data.get('Category'),
-                                                )
-                    # opTime = form2.cleaned_data.get('Open_time')
-                    # clTime = form2.cleaned_data.get('Closing_time')
-                    # Add = form2.cleaned_data.get('Address')
-                    # Land = form2.cleaned_data.get('Landline')
-                    # Cont = form2.cleaned_data.get('Contact')
-                    # catList = form2.cleaned_data.get('Category')
-                    # temp_Res = Restaurant(RestoID = form2.cleaned_data.get('RestoID'),
-                    #                     MngID = temp_user,
-                    #                     Open_time = opTime,
-                    #                     Closing_time = clTime,
-                    #                     Address = Add,
-                    #                     Landline = Land,
-                    #                     Contact = Cont,
-                    #                     # Category = catList
-                    #                     )
-                    # temp_Res.Category.add(catList)
-                    # print(temp_Res)
-                    # temp_Res.save()
-                    form2.save()
+                    opTime = form2.cleaned_data.get('Open_time')
+                    clTime = form2.cleaned_data.get('Closing_time')
+                    Add = form2.cleaned_data.get('Address')
+                    Land = form2.cleaned_data.get('Landline')
+                    Cont = form2.cleaned_data.get('Contact')
+                    temp_Res = Restaurant(RestoID = form2.cleaned_data.get('RestoID'),
+                                        MngID = temp_user,
+                                        Open_time = opTime,
+                                        Closing_time = clTime,
+                                        Address = Add,
+                                        Landline = Land,
+                                        Contact = Cont
+                                        )
+                    print(temp_Res)
+                    temp_Res.save()
                     print(Restaurant.objects.all())
             messages.success(request,f'Account Created for {username}! go ahead and log in!')
             return redirect('Register')
     else:
         form = RegistrationForm()
         form2 = RMRegistrationForm()
-        form2.fields['MngID'].widget = forms.HiddenInput()
     context = {'form':form,'form2':form2}
     return render(request,'registration_page.html',context)
 
@@ -275,10 +263,10 @@ def searchposts(request):
             context={'results': results,
                      'submitbutton': submitbutton}
 
-            return render(request, 'search.html', context)
+            return render(request, 'resto_list.html', context)
 
         else:
-            return render(request, 'search.html')
+            return render(request, 'resto_list.html')
 
     else:
-        return render(request, 'search.html')
+        return render(request, 'resto_list.html')
