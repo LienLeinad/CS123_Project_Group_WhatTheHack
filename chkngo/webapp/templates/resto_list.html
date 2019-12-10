@@ -42,19 +42,22 @@
                             <div class="col-sm-7">
                                     <div class="row resto-list-row font-weight-lighter">
                                         <!-- Insert type of restaurant ie: cafe, etc.-->
-                                        <h5>Category</h5>
+
+                                        <h5>{{ result.Category }}</h5>
+
                                     </div>
                                     <div class="row resto-list-row">
                                         <!-- Restaurant name here -->
                                         <h1 class="font-weight-bold">{{ result.RestoID }}</h1>
                                     </div>
-                                    <div class="row resto-list-row">
+                                    <!-- <div class="row resto-list-row"> -->
                                         <!-- City of restaurant -->
-                                        <h4>City</h4>
-                                    </div>
+                                        <!-- <h4>City</h4> -->
+                                    <!-- </div> -->
                                     <div class="row resto-list-row">
                                         <!-- Full address of restaurant-->
-                                        <h6 class="font-weight-light">Insert the Full Address here</h6>
+                                        <h6 class="font-weight-light">{{ result.Address }}</h6>
+
                                     </div>
                             </div>
                         </div>
