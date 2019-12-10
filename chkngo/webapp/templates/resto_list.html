@@ -58,27 +58,34 @@
                                     </div>
                             </div>
                         </div>
-                    </a>       
+                    </a>
                 </div>
                 <!--  -->
                 {% endfor %}
             {% else %}
-            
+
             <div class="row resto-list-row">
                 <h1>Results for <span class="font-weight-bold">"{{ request.GET.q }}"</span></h1>
             </div>
             <div class="resto-listing rounded">
                 <div class="row resto-list-row">
-                    <h6 class="no-results">No search results for this query</h6>  
+                    <h6 class="no-results">No search results for this query</h6>
                 </div>
-            </div>  
+            </div>
             {% endif %}
         {% else %}
             <div class="resto-listing row">
-                <h1 style="width: 100%;">This is the search page!</h1>
-                <h4 style="margin-top: 1vw;">Use the navigation bar to go around the website</h4>
+
+                <h1 style="width: 100%;">Results:</h1>
+                {% for cat in cat_list %}
+
+                  <a href="/restaurants/{{cat}}" class="col-sm cat-col shadow"><div><h4>{{ cat }}</h4></div></a>
+
+                {% endfor %}
+                <h4 style="margin-top: 1vw;"></h4>
             </div>
         {% endif %}
+
     </div>
 
 
@@ -105,7 +112,7 @@
     {% for resto in resto_list %}
     <p> <a href = "{{ r.RestoID }}">{{ resto.RestoID }}</a> </p>
     {% endfor %} -->
-    
+
     <!-- scripts to make everything smooth -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>

@@ -60,8 +60,8 @@
 			<div class="row cat-row">
 		{% endif %}
 
-				<a href="#" class="col-sm cat-col shadow"><div><h4>{{ category.CatName }}</h4></div></a>
-			
+				<a href="/category/{{category.CatName}}" class="col-sm cat-col shadow"><div><h4>{{ category.CatName }}</h4></div></a>
+
 		{% if forloop.counter == 3 %}
 			</div>
 			<div class="row cat-row">
@@ -71,7 +71,7 @@
 		</div>
 		{% endif %}
 
-			
+
 		{% endfor %}
 
 		{% endblock %}

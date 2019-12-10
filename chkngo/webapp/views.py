@@ -70,6 +70,11 @@ def RestoList(request):
     # context = {'resto_list': resto_list}
     return render(request, 'resto_list.html')
 
+def RestoCat(request, CatName):
+    cat_list = Restaurant.objects.filter(Category = Categories.objects.get(CatName = CatName))
+    context = {'cat_list': cat_list}
+    return render(request, 'resto_list.html', context)
+
 def RestoView(request, RestoID):
     resto_deets = Restaurant.objects.get(RestoID = RestoID)
     WaitList = WaitListEntry.objects.filter(RestoID = RestoID,
@@ -244,7 +249,7 @@ def SeatEntry(request,RestoID,id):
 
 # IMPORTANT: NOT A VIEW TO SEE THE WAIT LIST ANYMORE, JUST A TEST VIEW FOR ADDING WAITLIST ENTRIES BEFORE THE FRONT END GETS INTEGRATED TO RESTOVIEW
 
-#Q(RestoID__icontains=query) | 
+#Q(RestoID__icontains=query) |
 #search
 def searchposts(request):
     if request.method == 'GET':
