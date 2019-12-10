@@ -40,21 +40,18 @@
                                 <img src="" class="img-thumbnail resto-img">
                             </div>
                             <div class="col-sm-7">
-                                    <div class="row resto-list-row font-weight-lighter">
-                                        <!-- Insert type of restaurant ie: cafe, etc.-->
-                                        <h5>Category</h5>
-                                    </div>
+                                    
                                     <div class="row resto-list-row">
                                         <!-- Restaurant name here -->
                                         <h1 class="font-weight-bold">{{ result.RestoID }}</h1>
                                     </div>
-                                    <div class="row resto-list-row">
+                                    <!-- <div class="row resto-list-row"> -->
                                         <!-- City of restaurant -->
-                                        <h4>City</h4>
-                                    </div>
+                                        <!-- <h4>City</h4> -->
+                                    <!-- </div> -->
                                     <div class="row resto-list-row">
                                         <!-- Full address of restaurant-->
-                                        <h6 class="font-weight-light">Insert the Full Address here</h6>
+                                        <h6 class="font-weight-light">{{ result.Address}}</h6>
                                     </div>
                             </div>
                         </div>
@@ -79,7 +76,30 @@
                 <h1 style="width: 100%;">Results:</h1>
                 {% for cat in cat_list %}
 
-                  <a href="/restaurants/{{cat}}" class="col-sm cat-col shadow"><div><h4>{{ cat }}</h4></div></a>
+                <div class="resto-listing rounded">
+                    <a class="resto-a" href="/restaurants/{{ result.RestoID }}">
+                        <div class="row resto-list-row">
+                            <div class="col-sm-3">
+                                <!-- Image for restaurant listing -->
+                                <img src="" class="img-thumbnail resto-img">
+                            </div>
+                            <div class="col-sm-7">
+                                    <div class="row resto-list-row">
+                                        <!-- Restaurant name here -->
+                                        <h1 class="font-weight-bold">{{ cat.RestoID }}</h1>
+                                    </div>
+                                    <!-- <div class="row resto-list-row"> -->
+                                        <!-- City of restaurant -->
+                                        <!-- <h4>City</h4> -->
+                                    <!-- </div> -->
+                                    <div class="row resto-list-row">
+                                        <!-- Full address of restaurant-->
+                                        <h6 class="font-weight-light">{{ cat.Address }}</h6>
+                                    </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
 
                 {% endfor %}
                 <h4 style="margin-top: 1vw;"></h4>
