@@ -53,13 +53,13 @@ h1, h2, h3, h4, h5, h6 {
 	color: white;
 }
 
-.search-btn:hover {
+.search-btn:hover, .user-btn:hover {
 	background-color: #323031;
 	border-color: none;
 	color: white;
 }
 
-.search-btn {
+.search-btn, .user-btn {
 	background-color: none;
 	color: white;
 	border: 1px solid white;
@@ -67,11 +67,15 @@ h1, h2, h3, h4, h5, h6 {
 
 @media (min-width: 320px) {
 	.jumbotron, .layer {
-		height: 60vw;
+		height: 65vw;
 	}
 
 	.img-logo {
 		width: 20%;
+	}
+
+	.user-btn {
+		margin-left: 64vw;
 	}
 	
 	.cat-col {
@@ -96,11 +100,15 @@ h1, h2, h3, h4, h5, h6 {
 
 @media (min-width: 992px) {
 	.jumbotron, .layer {
-		height: 20vw;
+		height: 22vw;
 	}
 
 	.img-logo {
 		width: 8%;
+	}
+
+	.user-btn {
+		margin-left: 54vw;
 	}
 
 	.search-bar {
