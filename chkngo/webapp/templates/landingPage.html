@@ -35,9 +35,12 @@
 	<div class="jumbotron">
 		<div class="container">
 			<div class="row">
-				<button class="btn user-btn">Sign Up</button>
-				<button class="btn user-btn">Sign In</button>
-				<button class="btn user-btn">Logout</button>
+				{% if not user.is_authenticated %}
+				<a class="btn user-btn" href = "{% url 'Register' %}">Sign Up</a>
+				<a class="btn user-btn" href = "{% url 'Login' %}" >Sign In</a>
+				{% else %}
+				<a class="btn user-btn" href = "{% url 'Logout' %}">Logout</a>
+				{% endif %}
 			</div>
 			<div class="img">
 				<img src="{% static 'imgs/logo.svg' %}" class="img-logo" alt="logo">
